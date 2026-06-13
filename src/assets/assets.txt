@@ -1,0 +1,22 @@
+﻿AssetFilename		 	Σx	Σy	Frames	x	y	  Notes
+JetsetUILogo.png 		306	132	2		153	132
+Footer0.png				360	60									Initial paint border without animation for fast initial display
+Footer.png			5760	60	16		360	60
+btnBuy.png			 	264	72	4		66	72
+btnBuyActive.png	  	66	72
+btnConnect.png			264	72	4		66	72
+btnConnectActive.png  	66	72
+btnConnecting.png   	132	72	2		66	72
+btnDisconnect.png 		66	72
+btnReceive.png	 	 	264	72	4		66	72
+btnReceiveActive.png	 66	72
+btnTipTap.png			264	72	4		66	72
+btnTipTapActive.png		 66	72
+
+0x405be90996e7f995a08c2fbd8d8822ef5b03466c.svg
+Jetset.svg
+
+texture1.png			200	200
+texture2.png			400	400
+texture3.png			400	400
+
