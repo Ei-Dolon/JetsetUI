@@ -7,7 +7,7 @@
  * Settings window - set defaults for DApp or for connected wallet (Fiat: USD, Sound ON, Theme: Dark)
  * Buy window (Embr third party crypto swap and onramping)
  * Receive window (QR code for connected wallet to receive funds)
-*/
+ */
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { WagmiProvider } from 'wagmi';
@@ -19,11 +19,11 @@ import App from './App';
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <WagmiProvider config={config}>
-            <QueryClientProvider client={queryClient}>
-                	<App />
-            </QueryClientProvider>
-        </WagmiProvider>
-    </StrictMode>
+	<StrictMode>
+		<WagmiProvider config={config}>
+			<QueryClientProvider client={queryClient}>
+				<App />
+			</QueryClientProvider>
+		</WagmiProvider>
+	</StrictMode>
 );

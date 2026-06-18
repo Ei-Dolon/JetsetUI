@@ -1,39 +1,77 @@
 <!doctype html>
 <html lang="en">
-  <head>
-  <script type="module">
-		if (typeof global === 'undefined') {
-			window.global = window;
-		}
-	</script>
-    <meta charset="UTF-8" />
-    <meta name="version" content="%VITE_APP_VERSION%">
-    <meta name="description" content="Jetset DApp Frontend" />
+	<head>
+		<script type="module">
+			if (typeof global === 'undefined') {
+				window.global = window;
+			}
+		</script>
+		<meta charset="UTF-8" />
+		<meta
+			name="description"
+			content="Jetset DApp Frontend"
+		/>
 
-    <meta name="viewport" content="width=360, initial-scale=1.0, maximum-scale=1.0" />
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<meta
+			name="viewport"
+			content="width=360, initial-scale=1.0, maximum-scale=1.0"
+		/>
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     Prevent horizontal scroll within the DApp content itself -->
 
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="mobile-web-app-capable"
+			content="yes"
+		/>
+		<meta
+			name="apple-mobile-web-app-capable"
+			content="yes"
+		/>
 
-    <link rel="stylesheet" href="./src/index.css" />
-    <link rel="manifest" href="/manifest.json" />
-    <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="/Jetset.svg" />
-    <link rel="apple-touch-icon" href="/icons/jetset.svg" />
+		<link
+			rel="stylesheet"
+			href="./src/index.css"
+		/>
+		<link
+			rel="manifest"
+			href="/manifest.json"
+		/>
+		<!-- Favicons -->
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="/Jetset.svg"
+		/>
+		<link
+			rel="apple-touch-icon"
+			href="/icons/jetset.svg"
+		/>
 
-    <!-- Title -->
-    <title>JetsetUI v%VITE_APP_VERSION% - Jetset DApp Frontend</title>
+		<!-- Title -->
+		<title>JetsetUI - Jetset DApp Frontend</title>
 
-    <!-- Fonts (Livvic + Inter referenced in project docs) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2family=Inter&display=swap" />
+		<!-- Fonts (Livvic + Inter referenced in project docs) -->
+		<link
+			rel="preconnect"
+			href="https://fonts.googleapis.com"
+		/>
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin
+		/>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2family=Inter&display=swap"
+		/>
 
-    <!-- Preconnect: price API -->
-    <link rel="dns-prefetch" href="https://api.coingecko.com/" crossorigin />
-  	</head>
+		<!-- Preconnect: price API -->
+		<link
+			rel="dns-prefetch"
+			href="https://api.coingecko.com/"
+			crossorigin
+		/>
+	</head>
 	<body>
 		<noscript>You need to enable JavaScript to run this DApp.</noscript>
 		<div id="root"></div>

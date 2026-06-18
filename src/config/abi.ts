@@ -38,4 +38,3 @@ export const jetsetABI = [
 		outputs: [{ type: 'bool' }],
 	},
 ] as const;
-

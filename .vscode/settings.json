@@ -1,0 +1,39 @@
+{
+	"editor.defaultFormatter": "oxc.oxc-vscode",
+	"editor.formatOnSave": false,
+	"editor.formatOnSaveMode": "file",
+	"oxc.fmt.configPath": "../vite.config.ts",
+	"[javascript]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "oxc.oxc-vscode",
+		"editor.codeActionsOnSave": {
+			"source.format.oxc": "explicit",
+			"source.fixAll.oxc": "explicit"
+		}
+	},
+	"[javascriptreact]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "oxc.oxc-vscode",
+		"editor.codeActionsOnSave": {
+			"source.format.oxc": "explicit",
+			"source.fixAll.oxc": "explicit"
+		}
+	},
+	"[typescript]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "oxc.oxc-vscode",
+		"editor.codeActionsOnSave": {
+			"source.format.oxc": "explicit",
+			"source.fixAll.oxc": "explicit"
+		}
+	},
+	"[typescriptreact]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "oxc.oxc-vscode",
+		"editor.codeActionsOnSave": {
+			"source.format.oxc": "explicit",
+			"source.fixAll.oxc": "explicit"
+		}
+	},
+	"npm.scriptRunner": "vp"
+}

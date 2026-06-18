@@ -3,23 +3,30 @@
 # Global Rules
 
 ## 1. Think before coding, Ask before assuming:
+
 Explicitly surface tradeoffs, ask for clarification on ambiguities, and list assumptions instead of acting silently.
 
 ## 2. Simplicity first (Minimal code only):
+
 Implement the simplest solution possible. Avoid speculative abstractions, overcomplication, or unnecessary features.
 
 ## 3.Surgical changes (Touch only what is necessary):
+
 Avoid "drive-by" refactoring. Modify only the code necessary for the task, matching existing style and ignoring unrelated dead code.
 
 ## 4. Goal-driven execution (Define success and iterate):
+
 Replace general instructions with specific success criteria and validation steps, such as writing tests that reproduce a bug before trying to fix it.
 
 ## 5. Verification Mode
+
 Before answering, must **verify information using multiple search engines** and **cite authoritative sources**.
 If verification is not possible, Copilot must not rely on memory or training data alone.
 
 ## 6. External‑Source‑First Mode
+
 Must always prioritise **up‑to‑date information** from:
+
 - Official documentation
 - GitHub repositories
 - npm package pages
@@ -28,28 +35,36 @@ Must always prioritise **up‑to‑date information** from:
 Training‑data‑only answers must be avoided when authoritative sources exist.
 
 ## 7. Uncertainty Disallowed Mode
+
 If not certain about an answer:
+
 - must **stop and verify**
 - If still uncertain, it must explicitly state uncertainty
 - It must not guess, infer, or hallucinate missing details
 
 ## 8. Non‑Hallucination Mode
+
 If the answer is not known or cannot be verified:
 
 > **“I cannot verify this from trustworthy sources.”**
 
-;************************
+;\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***
+
 # Project Overview:
+
 Creating Decentralized Apps (DApp) for the Jetset token (JTS / JET) and Jetset LUX NFT environment hosted on the BNB Smart Chain since 2021.
 
 ## JetsetUI
+
 Jetset DApp Frontend - main connecting point for use of Jetset DApps, handles wallet connection.
 
 ## TipTap
+
 DApp provides simple method to tip using Jetset tokens, especially at Jetset sponsored events for example to tip your waiter, an artist's installation, or current DJ.
 Tip destination wallets are encoded into an error correcting QR Code which can be found on ID badges, stall signs, project banners, or in event literature.
 
 # Project Rules
+
 For code generation use TypeScript ^6.0.2 with functional decomposition programming patterns.
 For css generation produce two versions CSS v3 and Tailwindcss v4.2
 Use ai preferred markdown when providing explanations with code.
@@ -58,12 +73,13 @@ Example:
 //_ src/hooks/useModal.ts
 The second line should use JSDocs format and tags to help VS Code provide better IntelliSense and type checking, as well as explaining/documenting the code.
 Example:
-/** @module color/mixer
- * Blend two colors together.
- * @param {string} color1 - The first color, in hexadecimal format.
- * @param {string} color2 - The second color, in hexadecimal format.
- * @return {string} The blended color.
- */
+/\*\* @module color/mixer
+
+- Blend two colors together.
+- @param {string} color1 - The first color, in hexadecimal format.
+- @param {string} color2 - The second color, in hexadecimal format.
+- @return {string} The blended color.
+  \*/
 
 For code structure make use of Systems Analysis and Design patterns and rules, as much as possible, attempt production of explanations of overview at basic level for user, and indepth at competent level for developer.
 Model the following:
@@ -72,17 +88,18 @@ Data flow.
 Data dictionary.
 Map of physical objects and relationships, include the logical constructs and how they relate, and show the data flow both between physical and logical objects/data structures/files, also if suitable please add mermaid.js data flow diagram code as well.
 
-
 # Environment:
+
 Ubuntu Desktop v24 LTS - development: \\Devstation
 Microsoft Windows 10 Pro - testing: \\ALPHA
 Node.js v24 LTS
 IDE: VS Code
 Toolchain: Vite+
 
-Vite+ ^0.1.20  https://viteplus.dev/
+Vite+ ^0.1.20 https://viteplus.dev/
 
 ## Library Version; Website
+
 Following libraries are dependencies within project, and represent the lowest version number to use, websites include documentation.
 Typescript v6.0.2; https://typescriptlang.org/
 Vite v8.x; https://vite.dev/
@@ -92,6 +109,7 @@ viem v2.48.x; https://viem.sh/
 @tanstack/react-query v5.100.x; https://tanstack.com/query/latest/
 
 # Blockchain: BNB Smart Chain
+
 BlockChain Code: bsc
 BlockChain ID: 56/0x38
 Block Explorer: https://bscscan.com
@@ -115,7 +133,7 @@ Project Name = tiptap
 Project Location = $HOME/projects/jetsettoken.com/dapp/tiptap/
 
 Assets Library = $HOME/projects/jetsettoken.com/dapp/public/
-assets.txt  //index of assets
+assets.txt //index of assets
 
 Graphic formats:
 Image: .png, .webp - name, dimensions
@@ -124,14 +142,15 @@ StateGraphics: .png name, dimensions, (matrix of frames, frame dimensions), note
 Icons: /icons/ .svg
 
 ## Directory Structure:
+
 {Project}/
-.env  // API secrets
-CLAUDE.md	// this file, rules for AIs to follow
+.env // API secrets
+CLAUDE.md // this file, rules for AIs to follow
 index.html // Vite project entry point
 tsconfig.json // typescript config
 vite.config.ts // Vite+ config
 
-./src/	// source code files
+./src/ // source code files
 main.tsx // Initial setup, render, and context wrappers
 index.css // global styles
 App.tsx // Main app control code
@@ -150,9 +169,10 @@ CapitalFileNamed.tsx // React components - UI elements , returns tsx
 
 ./src/hooks/
 useHook.ts // React hooks control app logic and state, returns values and/or functions
-handleEvent.ts	// event handlers
+handleEvent.ts // event handlers
 
 ### Data Flow
+
 1. App loads
 2. WagmiProvider + QueryClientProvider initialize
 3. ConnectWallet checks useConnection()
@@ -163,24 +183,32 @@ handleEvent.ts	// event handlers
 8. UI switches to <Connection />
 9. User can disconnect → session cleared
 
-;************************
+;\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***
+
 <!--VITE PLUS START-->
+
 # Using Vite+, the Unified Toolchain for the Web
-This project is using Vite+, a unified toolchain built on top of Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt, and Vite Task.
-Vite+ wraps runtime management, package management, and frontend tooling in a single global CLI called `vp`.
-Vite+ is distinct from Vite, and it invokes Vite through `vp dev` and `vp build`.
-Run `vp help` to print a list of commands and `vp <command> --help` for information about a specific command.
+
+This project is using Vite+, a unified toolchain built on top of Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt, and Vite Task. Vite+ wraps runtime management, package management, and frontend tooling in a single global CLI called `vp`. Vite+ is distinct from Vite, and it invokes Vite through `vp dev` and `vp build`. Run `vp help` to print a list of commands and `vp <command> --help` for information about a specific command.
+
 Docs are local at `node_modules/vite-plus/docs` or online at https://viteplus.dev/guide/.
+
 ## Review Checklist
+
 - [ ] Run `vp install` after pulling remote changes and before getting started.
 - [ ] Run `vp check` and `vp test` to format, lint, type check and test changes.
 - [ ] Check if there are `vite.config.ts` tasks or `package.json` scripts necessary for validation, run via `vp run <script>`.
+- [ ] If setup, runtime, or package-manager behavior looks wrong, run `vp env doctor` and include its output when asking for help.
+
 <!--VITE PLUS END-->
 
-;************************
+;\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***
+
 <!--VITE PLUS OXLINT MIGRATION START-->
+
 name: migrate-oxlint
 description: Guide for migrating a project from ESLint to Oxlint. Use when asked to migrate, convert, or switch a JavaScript/TypeScript project's linter from ESLint to Oxlint.
+
 ---
 
 This skill guides you through migrating a JavaScript/TypeScript project from ESLint to [Oxlint](https://oxc.rs/docs/guide/usage/linter/).
@@ -254,12 +282,7 @@ ESLint core rules are usable in oxlint without needing to configure a plugin in 
 Oxlint groups rules into categories for bulk configuration, though only `correctness` is enabled by default:
 
 ```json
-{
-  "categories": {
-    "correctness": "error",
-    "suspicious": "warn"
-  }
-}
+{ "categories": { "correctness": "error", "suspicious": "warn" } }
 ```
 
 Available categories: `correctness` (default: enabled), `suspicious`, `pedantic`, `perf`, `style`, `restriction`, `nursery`.
@@ -308,12 +331,7 @@ Some features require manual attention:
 If you have any custom ESLint rules in the project repo itself, you can migrate them manually after running the migration tool by adding them to the `jsPlugins` field in `.oxlintrc.json`:
 
 ```json
-{
-  "jsPlugins": ["./path/to/my-plugin.js"],
-  "rules": {
-    "local-plugin/rule-name": "error"
-  }
-}
+{ "jsPlugins": ["./path/to/my-plugin.js"], "rules": { "local-plugin/rule-name": "error" } }
 ```
 
 ### External ESLint Plugins
@@ -321,12 +339,7 @@ If you have any custom ESLint rules in the project repo itself, you can migrate 
 For ESLint plugins without a built-in oxlint equivalent, use the `jsPlugins` field to load them:
 
 ```json
-{
-  "jsPlugins": ["eslint-plugin-custom"],
-  "rules": {
-    "custom/my-rule": "warn"
-  }
-}
+{ "jsPlugins": ["eslint-plugin-custom"], "rules": { "custom/my-rule": "warn" } }
 ```
 
 ## Step 5: Update CI and Scripts
@@ -374,22 +387,26 @@ Additional oxlint options:
 - [CLI Reference](https://oxc.rs/docs/guide/usage/linter/cli.html)
 - [Config File Reference](https://oxc.rs/docs/guide/usage/linter/config-file-reference.html)
 - [Complete Oxlint rule list and docs](https://oxc.rs/docs/guide/usage/linter/rules.html)
-<!--VITE PLUS OXLINT MIGRATION END-->
+    <!--VITE PLUS OXLINT MIGRATION END-->
 
-;************************
+;\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***
+
 ## React Performance Rules
 
 ### Stable Handlers
+
 - Use `useEffectEvent` for stable callback refs.
 - Avoid re‑subscribing effects due to unstable handlers.
 
 ### Effect Hygiene
+
 - Avoid effects that run due to object/array identity changes.
 - Avoid computing derived state inside effects.
 - Avoid defining components inside components.
 - Avoid unnecessary dependencies.
 
 ### Async Patterns
+
 - Avoid waterfall chains.
 - Use `Promise.all` for independent operations.
 - Defer awaits until needed.
@@ -397,6 +414,7 @@ Additional oxlint options:
 - Use dependency‑based parallelisation where possible.
 
 ### Suspense & RSC (React Server Components)
+
 - Use strategic Suspense boundaries.
 - Avoid blocking entire layouts with awaited data.
 - Minimise serialization across RSC boundaries.
@@ -404,68 +422,73 @@ Additional oxlint options:
 - Avoid hydration mismatches.
 
 ### Dynamic Imports
+
 - Use dynamic imports for heavy components.
 - Defer non‑critical third‑party libraries.
-
 
 ## UI & DOM Performance Rules
 
 ### DOM Access
+
 - Batch DOM reads and writes.
 - Avoid layout thrashing.
 - Use passive event listeners for scroll/touch events.
 
 ### Caching
+
 - Cache repeated function calls.
 - Cache property access in loops.
 - Use Set/Map for O(1) lookups.
 - Build index maps for repeated lookups.
 
 ### Array Operations
+
 - Combine multiple array iterations.
 - Use `flatMap` instead of map+filter.
 - Use `toSorted()` instead of mutating `sort()`.
 
 ### SVG & Animation
+
 - Animate wrapper elements, not SVGs.
 - Optimise SVG precision.
-
 
 ## Storage & Local Data Rules
 
 ### localStorage
+
 - Version keys (`jetsetui:userConfig:v1.0.0'`).
 - Minimise stored data.
 - Wrap reads/writes in try/catch.
 - Cache storage API calls in memory.
 
-
 ## JetsetUI and dApp Architecture Rules
 
 ### Wallet Integration
-- Use stable connector identity uid  for wallets supported by connection to the BNB Smart Chain.
+
+- Use stable connector identity uid for wallets supported by connection to the BNB Smart Chain.
 - Ensure SSR‑safe wagmi config.
 - Use low‑latency RPC fallbacks.
 - Use typed hooks for balances, fiat values, and token metadata.
 
 ### Serverless Price Fetching
+
 - Minify JSON output.
 - Timestamp API output.
 - Client-side cache should handle :
-  - Check staleness (>10 minutes)
-  - Fetch directly from CoinGecko if stale, on error use host file at https://jetsettoken.com/dapp/public/priceData.json fallback after 2 retries to using original file bundled with app found ./priceData.json which is ./public/priceData.json on dev server.
-
+    - Check staleness (>10 minutes)
+    - Fetch directly from CoinGecko if stale, on error use host file at https://jetsettoken.com/dapp/public/priceData.json fallback after 2 retries to using original file bundled with app found ./priceData.json which is ./public/priceData.json on dev server.
 
 ### UI and UX
+
 - Use modular, extensible components.
 - For css generation produce two versions CSS v3 and Tailwindcss v4.2
 - Use Tailwind CSS v4.2 with utility‑first patterns.
 - Use css animations and transition (sprite‑driven UI) where possible.
 
-
 ## Code Style and Structure
 
 ### General
+
 - Prefer early returns.
 - Hoist static JSX.
 - Hoist RegExp creation.
@@ -473,5 +496,6 @@ Additional oxlint options:
 - Use explicit conditional rendering.
 
 ### Loops
+
 - Use loops for min/max instead of sorting.
 - Use early length checks for array comparisons.
