@@ -13,9 +13,6 @@
 	/* Improve built-in form & scrollbar theming */
 	color-scheme: dark;
 
-	--color-bg: var(--color-bg);
-	--color-text: var(--color-text);
-
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;

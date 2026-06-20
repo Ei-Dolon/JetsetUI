@@ -16,6 +16,7 @@ export default defineConfig({
 	],
 	staged: { 'src/**/*.{ts,tsx,js,jsx}': 'vp check --fix' },
 	fmt: {
+		ignorePatterns: ['**/*.md', 'node_modules/**', 'dist/**'],
 		printWidth: 100,
 		tabWidth: 4,
 		useTabs: true,
