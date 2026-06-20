@@ -1,0 +1,19 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "chrome",
+			"request": "launch",
+			"name": "Vite+: Launch Browser & Debug",
+			"url": "http://localhost:5173",
+			"webRoot": "${workspaceFolder}",
+			"timeout": 30000,
+			"sourceMapPathOverrides": {
+				"webpack:///./~/*": "${workspaceFolder}/node_modules/*",
+				"webpack:///src/*": "${workspaceFolder}/src/*",
+				"vite:///*": "${workspaceFolder}/*"
+			},
+			"preLaunchTask": "run-vite-plus-dev"
+		}
+	]
+}
