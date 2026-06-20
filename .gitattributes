@@ -1,5 +1,7 @@
 # 1. Enforce LF line endings for all text files
 * text=auto eol=lf
+*.{cmd,[cC][mM][dD]} text eol=crlf
+*.{bat,[bB][aA][tT]} text eol=crlf
 
 # 2. Blockchain smart contracts & configurations
 *.sol text eol=lf

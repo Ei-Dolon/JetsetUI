@@ -1,6 +1,4 @@
-# JetsetUI v0.0.3a
-
-a = alpha, b = beta, r=release
+# JetsetUI v0.0.3-alpha
 
 **Toolchain:** Vite+ v0.1.24
 

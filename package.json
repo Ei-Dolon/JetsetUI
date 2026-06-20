@@ -1,6 +1,6 @@
 {
 	"name": "jetsetui",
-	"version": "0.0.3a",
+	"version": "0.0.3-alpha",
 	"private": true,
 	"description": "Jetset DApp Frontend",
 	"homepage": "https://jetsettoken.com/dapp/jetsetui",
@@ -33,7 +33,7 @@
 	"devEngines": {
 		"packageManager": {
 			"name": "pnpm",
-			"version": "11.7.0",
+			"version": "11.8.0",
 			"onFail": "download"
 		}
 	}
