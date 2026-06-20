@@ -14,4 +14,5 @@ interface Window {
 }
 
 declare module '*.css';
-declare module '@fontsource-variable/inter/variable.css';
+declare module '@fontsource-variable/inter';
+declare module '@fontsource-variable/inter/index.css';
