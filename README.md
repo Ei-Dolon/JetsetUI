@@ -11,10 +11,16 @@
 
 ## Development Environment:
 
+Windows 11 Pro - Windows Development software and utilities.  
+WSL2 Ubuntu v26 - project files, Linux Dev software and utilities.
+Previously:
 Ubuntu Desktop v24 - Devstation
 Windows 11 Pro - Text Harness
-VS Code
+
+IDE: VS Code
+Toolchain: Vite-plus
 Node.js v24
+Package manager: pnpm
 
 ## Design documentation:
 
