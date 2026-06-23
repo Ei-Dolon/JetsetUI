@@ -12,10 +12,11 @@ export interface PriceMatrix {
 export interface DAppGlobalSettings {
 	jetsetui_version: string;
 	priceData_version: string;
+	priceData: PriceMatrix;
 	boolSound: boolean;
 	theme: Theme;
 	selFiat: FiatCurrency;
-	priceData: PriceMatrix;
+
 }
  */
 // Wallet-specific settings saved under the 0x address key

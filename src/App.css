@@ -1,0 +1,27 @@
+
+.app-header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: calc(140px + env(safe-area-inset-top, 0px));
+  height: 140px;
+  z-index: 10;
+}
+
+.app-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(140px + env(safe-area-inset-top, 0px));
+  bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  z-index: 5;
+}
+
+.app-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  z-index: 10;
+}
