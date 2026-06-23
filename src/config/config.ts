@@ -2,7 +2,7 @@
 import { createConfig, http, createStorage, fallback } from 'wagmi';
 import { bsc } from 'wagmi/chains';
 import { injected, walletConnect, coinbaseWallet } from 'wagmi/connectors';
-import { CONSTS } from './consts.ts';
+import { CONSTS } from './consts';
 
 declare module 'wagmi' {
 	interface Register {

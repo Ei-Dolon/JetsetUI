@@ -2,7 +2,7 @@ import { defineConfig } from 'vite-plus';
 import { version } from './package.json';
 
 export default defineConfig({
-	define: { __APP_VERSION__: JSON.stringify(version) },
+	define: { 'import.meta.env.VITE_APP_VERSION': JSON.stringify(version) },
 	plugins: [
 		{
 			name: 'html-transform',
@@ -16,7 +16,7 @@ export default defineConfig({
 	],
 	staged: { 'src/**/*.{ts,tsx,js,jsx}': 'vp check --fix' },
 	fmt: {
-		ignorePatterns: ['**/*.md', 'node_modules/**', 'dist/**'],
+		ignorePatterns: ['**/*.{md,json,txt,css}', 'node_modules/**', 'dist/**'],
 		printWidth: 100,
 		tabWidth: 4,
 		useTabs: true,

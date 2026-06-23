@@ -13,18 +13,26 @@ import { createRoot } from 'react-dom/client';
 import { WagmiProvider } from 'wagmi';
 import { config } from './config/config';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { initializeDAppStorage } from './config/initStorage';
 import '@fontsource-variable/inter/index.css';
 import './index.css';
 import App from './App';
 
 const queryClient = new QueryClient();
+async function bootstrap() {
+	await initializeDAppStorage();
 
-createRoot(document.getElementById('root')!).render(
-	<StrictMode>
-		<WagmiProvider config={config}>
-			<QueryClientProvider client={queryClient}>
-				<App />
-			</QueryClientProvider>
-		</WagmiProvider>
-	</StrictMode>
-);
+	createRoot(document.getElementById('root')!).render(
+		<StrictMode>
+			<WagmiProvider config={config}>
+				<QueryClientProvider client={queryClient}>
+					<App />
+				</QueryClientProvider>
+			</WagmiProvider>
+		</StrictMode>
+	);
+}
+
+bootstrap().catch((error) => {
+	console.error('Failed to initialize app storage', error);
+});

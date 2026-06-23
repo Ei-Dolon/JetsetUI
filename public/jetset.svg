@@ -1,0 +1,30 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="256" cy="256" r="230" fill="#121212"/>
+  <defs>
+    <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="outer"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="inner"/>
+      <feMerge>
+        <feMergeNode in="outer"/>
+        <feMergeNode in="inner"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs> 
+  <path d="M 310 120, L 310 300, Q 310 360 250 360,
+  Q 190 360 190 300, M 190 300, L 190 290"
+  fill="none" stroke="#00d4ff" stroke-width="22" 
+  stroke-linecap="square" filter="url(#neonGlow)"/>
+  <path d="M 310 120, L 310 300, Q 310 360 250 360,
+  Q 190 360 190 300, M 190 300, L 190 290"
+  fill="none" stroke="#F0F8FF" stroke-width="10" 
+  stroke-linecap="square" filter="url(#neonGlow)"/>
+  <path d="M 280 120, L 280 290, Q 280 330 250 330,
+  Q 220 330 220 290"
+  fill="none" stroke="#00d4ff" stroke-width="22"
+  stroke-linecap="square" filter="url(#neonGlow)"/>
+  <path d="M 280 120, L 280 290, Q 280 330 250 330,
+  Q 220 330 220 290"
+  fill="none" stroke="#F0F8FF" stroke-width="10"
+  stroke-linecap="square" filter="url(#neonGlow)"/>
+</svg>
