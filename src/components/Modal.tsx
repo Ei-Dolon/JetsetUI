@@ -1,45 +1,44 @@
 //_ src/components/Modal.tsx
-import { useEffect, useRef, useCallback, createContext, useContext } from 'react';
+/**
+ * @module Modal
+ * @description Base modal component. Renders into #modal-root via React Portal.
+ * Handles overlay click, Escape key, body scroll lock, focus trap, and CSS
+ * open/close transitions. Footer renders Close only, or Close + Save when
+ * onSave is provided. X button always discards and closes.
+ */
+
+import { useEffect, useRef, type ReactNode, type MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
+import './Modal.css';
 
-// Context so content can call close(exitCode) without prop drilling
-interface ModalCtx {
-	close: (exitCode?: number) => void;
-}
-
-const ModalContext = createContext<ModalCtx | null>(null);
-
-export const useModalContext = () => {
-	const ctx = useContext(ModalContext);
-	if (!ctx) throw new Error('useModalContext must be used inside <Modal>');
-	return ctx;
-};
-
-// Types
-interface ModalProps {
+export interface ModalProps {
 	isOpen: boolean;
+	onClose: () => void;
+	onSave?: () => void;
 	title: string;
-	onClose: (exitCode?: number) => void;
-	children: React.ReactNode;
+	labelId?: string;
+	children: ReactNode;
 }
 
-// Component
-export function Modal({ isOpen, title, onClose, children }: ModalProps) {
-	const overlayRef = useRef<HTMLDivElement>(null);
+const FOCUSABLE = [
+	'a[href]',
+	'button:not([disabled])',
+	'input:not([disabled])',
+	'select:not([disabled])',
+	'textarea:not([disabled])',
+	'[tabindex]:not([tabindex="-1"])',
+].join(', ');
+
+export function Modal({
+	isOpen,
+	onClose,
+	onSave,
+	title,
+	labelId = 'modal-title',
+	children,
+}: ModalProps) {
 	const dialogRef = useRef<HTMLDivElement>(null);
-
-	// Stable close wrapper so effects don't re-register
-	const handleClose = useCallback((exitCode = 0) => onClose(exitCode), [onClose]);
-
-	// ESC key
-	useEffect(() => {
-		if (!isOpen) return;
-		const onKey = (e: KeyboardEvent) => {
-			if (e.key === 'Escape') handleClose(0);
-		};
-		window.addEventListener('keydown', onKey);
-		return () => window.removeEventListener('keydown', onKey);
-	}, [isOpen, handleClose]);
+	const portalRoot = document.getElementById('modal-root');
 
 	// Body scroll lock
 	useEffect(() => {
@@ -51,133 +50,104 @@ export function Modal({ isOpen, title, onClose, children }: ModalProps) {
 		};
 	}, [isOpen]);
 
-	// Focus trap: move focus into dialog on open
+	// Escape key close
 	useEffect(() => {
-		if (isOpen) dialogRef.current?.focus();
+		if (!isOpen) return;
+		const handleKey = (e: globalThis.KeyboardEvent) => {
+			if (e.key === 'Escape') onClose();
+		};
+		window.addEventListener('keydown', handleKey);
+		return () => window.removeEventListener('keydown', handleKey);
+	}, [isOpen, onClose]);
+
+	// Focus trap
+	useEffect(() => {
+		if (!isOpen || !dialogRef.current) return;
+		const el = dialogRef.current;
+		const focusable = () => Array.from(el.querySelectorAll<HTMLElement>(FOCUSABLE));
+
+		// Focus first element on open
+		queueMicrotask(() => focusable()[0]?.focus());
+
+		const handleKeyDown = (e: globalThis.KeyboardEvent) => {
+			if (e.key !== 'Tab') return;
+			const nodes = focusable();
+			if (!nodes.length) return;
+			const first = nodes[0];
+			const last = nodes[nodes.length - 1];
+			if (!first || !last) return;
+			if (e.shiftKey) {
+				if (document.activeElement === first) {
+					e.preventDefault();
+					last.focus();
+				}
+			} else {
+				if (document.activeElement === last) {
+					e.preventDefault();
+					first.focus();
+				}
+			}
+		};
+
+		el.addEventListener('keydown', handleKeyDown);
+		return () => el.removeEventListener('keydown', handleKeyDown);
 	}, [isOpen]);
 
-	// Click outside
-	const onOverlayClick = useCallback(
-		(e: React.MouseEvent<HTMLDivElement>) => {
-			if (e.target === overlayRef.current) handleClose(0);
-		},
-		[handleClose]
-	);
+	if (!isOpen || !portalRoot) return null;
 
-	if (!isOpen) return null;
+	const handleOverlayClick = (e: MouseEvent<HTMLDivElement>) => {
+		if (e.target === e.currentTarget) onClose();
+	};
 
 	return createPortal(
-		<ModalContext value={{ close: handleClose }}>
-			{/* Overlay */}
-			<div
-				ref={overlayRef}
-				onClick={onOverlayClick}
-				className="modal-overlay"
-				style={overlay}
-				aria-hidden="true"
-			/>
-
-			{/* Dialog */}
+		<div
+			className="modal-overlay"
+			onClick={handleOverlayClick}
+			aria-hidden="false"
+		>
 			<div
 				ref={dialogRef}
-				role="dialog"
-				aria-modal
-				aria-label={title}
-				tabIndex={-1}
 				className="modal-dialog"
-				style={dialog}
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby={labelId}
 			>
-				{/* Header */}
-				<div style={header}>
-					<span style={titleStyle}>{title}</span>
+				<header className="modal-header">
+					<h2
+						id={labelId}
+						className="modal-title"
+					>
+						{title}
+					</h2>
 					<button
-						onClick={() => handleClose(0)}
+						className="modal-close-x"
+						onClick={onClose}
 						aria-label="Close"
-						style={xBtn}
 					>
-						✕
+						&times;
 					</button>
-				</div>
+				</header>
 
-				{/* Content */}
-				<div style={body}>{children}</div>
+				<div className="modal-body">{children}</div>
 
-				{/* Footer */}
-				<div style={footer}>
+				<footer className="modal-footer">
 					<button
-						onClick={() => handleClose(0)}
-						style={closeBtn}
+						className="modal-btn modal-btn--close"
+						onClick={onClose}
 					>
-						Close {title}
+						Close
 					</button>
-				</div>
+					{onSave !== undefined && (
+						<button
+							className="modal-btn modal-btn--save"
+							onClick={onSave}
+						>
+							Save
+						</button>
+					)}
+				</footer>
 			</div>
-		</ModalContext>,
-		document.body
+		</div>,
+		portalRoot
 	);
 }
-
-const overlay: React.CSSProperties = {
-	position: 'fixed',
-	inset: 0,
-	backgroundColor: 'rgba(0,0,0,0.6)',
-	backdropFilter: 'blur(4px)',
-	zIndex: 1000,
-};
-
-const dialog: React.CSSProperties = {
-	position: 'fixed',
-	top: '50%',
-	left: '50%',
-	transform: 'translate(-50%, -50%)',
-	zIndex: 1001,
-	background: '#1a1a2e',
-	borderRadius: '12px',
-	minWidth: 'min(90vw, 480px)',
-	maxHeight: '85vh',
-	display: 'flex',
-	flexDirection: 'column',
-	outline: 'none',
-};
-
-const header: React.CSSProperties = {
-	display: 'flex',
-	justifyContent: 'space-between',
-	alignItems: 'center',
-	padding: '1rem 1.25rem 0.75rem',
-	borderBottom: '1px solid rgba(255,255,255,0.08)',
-};
-
-const titleStyle: React.CSSProperties = {
-	fontFamily: 'Syne, sans-serif',
-	fontWeight: 700,
-	fontSize: '1.1rem',
-};
-
-const xBtn: React.CSSProperties = {
-	background: 'none',
-	border: 'none',
-	cursor: 'pointer',
-	color: 'currentColor',
-	fontSize: '1rem',
-	padding: '0.25rem',
-	lineHeight: 1,
-};
-
-const body: React.CSSProperties = { padding: '1.25rem', overflowY: 'auto', flex: 1 };
-
-const footer: React.CSSProperties = {
-	padding: '0.75rem 1.25rem 1rem',
-	display: 'flex',
-	justifyContent: 'center',
-	borderTop: '1px solid rgba(255,255,255,0.08)',
-};
-
-const closeBtn: React.CSSProperties = {
-	padding: '0.5rem 1.5rem',
-	borderRadius: '8px',
-	border: '1px solid rgba(255,255,255,0.2)',
-	background: 'transparent',
-	cursor: 'pointer',
-	fontFamily: 'DM Mono, monospace',
-};

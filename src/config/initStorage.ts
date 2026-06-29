@@ -13,7 +13,7 @@ export async function initializeDAppStorage(): Promise<void> {
 	}
 	const defaultPrices = (await res.json()) as PriceMatrix;
 
-	// Generate clean ISO 8601 UTC timestamp: YYYYMMDDThhmmssZ
+	// Generate clean ISO 8601 UTC timestamp: YYYYMMDDhhmmss
 	const cleanTimestamp = new Date().toISOString().replace(/[-:]|\.\d{3}/g, '');
 
 	// Set device-level defaults

@@ -36,4 +36,12 @@ export default defineConfig({
 		rules: { 'vite-plus/prefer-vite-plus-imports': 'error' },
 		options: { typeAware: true, typeCheck: true },
 	},
+	run: {
+		tasks: {
+			'fetch:prices': {
+				// Runs a lightweight Node native fetch operation
+				command: 'node ./src/config/fetchPriceData.js',
+			},
+		},
+	},
 });

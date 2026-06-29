@@ -34,6 +34,6 @@
 		"forceConsistentCasingInFileNames": true,
 		"skipLibCheck": true
 	},
-	"include": ["src", "src/vite-env.d.ts"],
+	"include": ["vite.config.ts", "src", "src/vite-env.d.ts"],
 	"exclude": ["node_modules", "dist"]
 }

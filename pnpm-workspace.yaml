@@ -1,3 +1,11 @@
 allowBuilds:
-  '@reown/appkit': set this to true or false
-  protobufjs: set this to true or false
+    '@reown/appkit': false
+    protobufjs: true
+peerDependencyRules:
+    ignoreMissing:
+        - '@solana/web3.js'
+    allowedVersions:
+        'typescript': '6.0.3'
+overrides:
+    '@paulmillr/qr': '0.3.0'
+    'uuid': '14.0.1'
