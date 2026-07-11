@@ -1,32 +1,46 @@
+/* src/index.css */
 /* Custom variables for dark scheme */
 html[data-theme='dark'] {
-  --text-color: AliceBlue;
-  --background-body: #1C1C1C;
-  --other-var: #111111;
-  color-scheme: dark; /* Tells the browser to render scrollbars & forms dark */
+	--text-color: AliceBlue;
+	--color-text: AliceBlue;
+	--background-body: #1c1c1c;
+	--color-bg: #1c1c1c;
+	--other-var: #111111;
+	color-scheme: dark; /* Tells the browser to render scrollbars & forms dark */
 }
 
 /* Custom variables for light scheme */
 html[data-theme='light'] {
-  --text-color: #111111;
-  --background-body: #FAFAFA;
-  --other-var: #ffffff;
-  color-scheme: light; /* Tells the browser to render scrollbars & forms light */
+	--text-color: #111111;
+	--background-body: #fafafa;
+	--other-var: #ffffff;
+	color-scheme: light; /* Tells the browser to render scrollbars & forms light */
 }
 
+/*	Fluid type scale:
+	Add as custom properties so any component can reference them consistently instead of hardcoding clamp() values inline.
+*/
 :root {
+	--fs-h1: clamp(2rem, 6vw, 3.5rem);
+	--fs-h2: clamp(1.5rem, 5vw, 2.5rem);
+	--fs-h3: clamp(1.25rem, 4vw, 2rem);
+	--fs-h4: clamp(1.125rem, 3.5vw, 1.5rem);
+	--fs-h5: clamp(1rem, 3vw, 1.25rem);
+	--fs-h6: clamp(0.9375rem, 2.5vw, 1.125rem);
+
+	--fs-body-lg: clamp(1rem, 2.5vw, 1.125rem);
+	--fs-body: clamp(0.875rem, 2vw, 1rem);
+	--fs-body-sm: clamp(0.8125rem, 1.75vw, 0.9375rem);
+
+	--fs-caption: clamp(0.75rem, 1.5vw, 0.8125rem);
+	--fs-tiny: clamp(0.6875rem, 1.25vw, 0.75rem);
+
 	/* Typography - system font stack */
 	/* system-ui = Segoe UI (Windows), Roboto (Android), Ubuntu (Linux), San Francisco (macOS/iOS) */
-	--font-sans: 'Inter Variable', system-ui, sans-serif;
+	--font-sans: 'Inter', system-ui, sans-serif;
 	--font-mono: ui-monospace;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-html {
-	/* Fluid typography is great, but 14px to 20px is quite tight.
-     This works well for readability. */
-	font-size: clamp(14px, 1.5vw, 20px);
 }
 
 body {
@@ -37,7 +51,9 @@ body {
 	line-height: 1.5;
 	color: var(--text-color);
 	background-color: var(--background-body);
-	transition: background-color 0.2s ease, color 0.2s ease; /* Smooth fade transitions */
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease; /* Smooth fade transitions */
 	/* Modern text rendering */
 	text-rendering: optimizeLegibility;
 	font-synthesis: none;

@@ -35,8 +35,7 @@ export function ReceiveModal() {
 			<button
 				className={styles['copy']}
 				onClick={() => void navigator.clipboard.writeText(address)}
-				type="button"
-			>
+				type="button">
 				Copy address
 			</button>
 		</div>

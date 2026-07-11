@@ -9,12 +9,12 @@ const OUTPUT_PATH = path.resolve(__dirname, '../assets/priceData.json');
 const META_PATH = path.resolve(__dirname, '../assets/priceMeta.json');
 
 function getUtcTimestampString() {
-	return new Date().toISOString().replace(/[-:]/g, '').replace('.000', '');
+	return new Date().toISOString().slice(0, 19).replace(/[-:T]/g, '');
 }
 
 async function downloadPriceData() {
 	try {
-		console.log('[Vite+] Fetching deployment price data...');
+		process.stdout.write('[Vite+] Fetching deployment price data...\n');
 		const response = await fetch(API_URL);
 
 		if (!response.ok) {
@@ -22,14 +22,14 @@ async function downloadPriceData() {
 		}
 
 		const data = await response.json();
-		const metaPayload = { version: getUtcTimestampString() };
+		const metaPayload = { priceData_version: getUtcTimestampString() };
 
 		// Write out the raw structural output to your source layout
 		fs.writeFileSync(OUTPUT_PATH, JSON.stringify(data, null, 0), 'utf-8');
 		fs.writeFileSync(META_PATH, JSON.stringify(metaPayload, null, 0), 'utf-8');
-		console.log('priceData.json generated successfully!');
+		process.stdout.write('priceData.json generated successfully!\n');
 	} catch (error) {
-		console.error('Failed to pull price data:', error);
+		process.stderr.write('Failed to pull price data:' + error.message + '\n');
 		process.exit(1);
 	}
 }

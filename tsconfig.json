@@ -3,37 +3,33 @@
 		/* Language and Environment */
 		"target": "ES2025",
 		"useDefineForClassFields": true,
-		"lib": ["ES2025", "DOM"],
+		"lib": ["ES2025", "DOM", "DOM.Iterable"],
 		"jsx": "react-jsx",
 		"jsxImportSource": "react",
+		"isolatedModules": true,
 
 		/* Module Resolution */
 		"module": "ESNext",
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 
-		/* Strict Type Checking */
-		"strict": true,
-		"noImplicitAny": true,
-		"strictNullChecks": true,
-		"strictFunctionTypes": true,
-		"strictBindCallApply": true,
-		"strictPropertyInitialization": true,
-		"noImplicitThis": true,
-		"alwaysStrict": true,
+		/* Strict Type Checking & JS Support */
+		"noEmit": true,
+		"allowJs": true,
+		"maxNodeModuleJsDepth": 0 /* CRITICAL: Prevents allowJs from breaking on third-party node_modules */,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitReturns": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"noUncheckedIndexedAccess": true,
-		"noPropertyAccessFromIndexSignature": true,
+		"strict": true,
 
 		/* Interop & Output */
 		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
 		"forceConsistentCasingInFileNames": true,
 		"skipLibCheck": true
 	},
-	"include": ["vite.config.ts", "src", "src/vite-env.d.ts"],
+	"include": ["vite.config.ts", "src"],
 	"exclude": ["node_modules", "dist"]
 }

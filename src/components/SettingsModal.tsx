@@ -36,8 +36,7 @@ export function SettingsModal() {
 					{FIAT_OPTIONS.map(({ value, label }) => (
 						<label
 							key={value}
-							className={styles['radioLabel']}
-						>
+							className={styles['radioLabel']}>
 							<input
 								type="radio"
 								name="fiat"

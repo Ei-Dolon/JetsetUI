@@ -1,44 +1,68 @@
 //_ src/components/Modal.tsx
 /**
- * @module Modal
- * @description Base modal component. Renders into #modal-root via React Portal.
- * Handles overlay click, Escape key, body scroll lock, focus trap, and CSS
- * open/close transitions. Footer renders Close only, or Close + Save when
- * onSave is provided. X button always discards and closes.
- */
-
-import { useEffect, useRef, type ReactNode, type MouseEvent } from 'react';
+<Modal
+  isOpen={...}
+  title={...}
+  optional onSave={...}
+  onClose={...}
+*/
+import { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react';
 import { createPortal } from 'react-dom';
-import './Modal.css';
+import styles from './Modal.module.css';
 
-export interface ModalProps {
-	isOpen: boolean;
-	onClose: () => void;
-	onSave?: () => void;
-	title: string;
-	labelId?: string;
-	children: ReactNode;
+// ── Context so content can call close(exitCode) without prop drilling ──
+interface ModalCtx {
+	close: (exitCode?: number) => void;
 }
 
-const FOCUSABLE = [
-	'a[href]',
-	'button:not([disabled])',
-	'input:not([disabled])',
-	'select:not([disabled])',
-	'textarea:not([disabled])',
-	'[tabindex]:not([tabindex="-1"])',
-].join(', ');
+const ModalContext = createContext<ModalCtx | null>(null);
 
-export function Modal({
-	isOpen,
-	onClose,
-	onSave,
-	title,
-	labelId = 'modal-title',
-	children,
-}: ModalProps) {
+export const useModalContext = () => {
+	const ctx = useContext(ModalContext);
+	if (!ctx) throw new Error('useModalContext must be used inside <Modal>');
+	return ctx;
+};
+
+// Types
+interface ModalProps {
+	isOpen: boolean;
+	title: string;
+	onSave?: (exitCode?: number) => void;
+	onClose: (exitCode?: number) => void;
+	children: React.ReactNode;
+}
+
+// Component
+export function Modal({ isOpen, title, onSave, onClose, children }: ModalProps) {
+	const overlayRef = useRef<HTMLDivElement>(null);
 	const dialogRef = useRef<HTMLDivElement>(null);
-	const portalRoot = document.getElementById('modal-root');
+	const [animationState, setAnimationState] = useState<'open' | 'closed'>(() =>
+		isOpen ? 'open' : 'closed'
+	);
+	const [shouldRender, setShouldRender] = useState(isOpen);
+	const portalRoot = document.getElementById('portal-root');
+
+	// Stable close wrapper so effects don't re-register
+	const handleClose = useCallback((exitCode = 0) => onClose(exitCode), [onClose]);
+
+	useEffect(() => {
+		if (isOpen) {
+			setShouldRender(true);
+			setAnimationState('open');
+		} else if (shouldRender) {
+			setAnimationState('closed');
+		}
+	}, [isOpen, shouldRender]);
+
+	// ESC key
+	useEffect(() => {
+		if (!isOpen) return;
+		const onKey = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') handleClose(0);
+		};
+		window.addEventListener('keydown', onKey);
+		return () => window.removeEventListener('keydown', onKey);
+	}, [isOpen, handleClose]);
 
 	// Body scroll lock
 	useEffect(() => {
@@ -50,104 +74,83 @@ export function Modal({
 		};
 	}, [isOpen]);
 
-	// Escape key close
+	// Focus trap: move focus into modal window on open
 	useEffect(() => {
-		if (!isOpen) return;
-		const handleKey = (e: globalThis.KeyboardEvent) => {
-			if (e.key === 'Escape') onClose();
-		};
-		window.addEventListener('keydown', handleKey);
-		return () => window.removeEventListener('keydown', handleKey);
-	}, [isOpen, onClose]);
-
-	// Focus trap
-	useEffect(() => {
-		if (!isOpen || !dialogRef.current) return;
-		const el = dialogRef.current;
-		const focusable = () => Array.from(el.querySelectorAll<HTMLElement>(FOCUSABLE));
-
-		// Focus first element on open
-		queueMicrotask(() => focusable()[0]?.focus());
-
-		const handleKeyDown = (e: globalThis.KeyboardEvent) => {
-			if (e.key !== 'Tab') return;
-			const nodes = focusable();
-			if (!nodes.length) return;
-			const first = nodes[0];
-			const last = nodes[nodes.length - 1];
-			if (!first || !last) return;
-			if (e.shiftKey) {
-				if (document.activeElement === first) {
-					e.preventDefault();
-					last.focus();
-				}
-			} else {
-				if (document.activeElement === last) {
-					e.preventDefault();
-					first.focus();
-				}
-			}
-		};
-
-		el.addEventListener('keydown', handleKeyDown);
-		return () => el.removeEventListener('keydown', handleKeyDown);
+		if (isOpen) dialogRef.current?.focus();
 	}, [isOpen]);
 
-	if (!isOpen || !portalRoot) return null;
+	// Click outside
+	const onOverlayClick = useCallback(
+		(e: React.MouseEvent<HTMLDivElement>) => {
+			if (e.target === overlayRef.current) handleClose(0);
+		},
+		[handleClose]
+	);
+	const handleAnimationEnd = useCallback(
+		(event: React.AnimationEvent<HTMLDivElement>) => {
+			if (animationState === 'closed' && event.currentTarget.dataset['state'] === 'closed') {
+				setShouldRender(false);
+			}
+		},
+		[animationState, setShouldRender]
+	);
 
-	const handleOverlayClick = (e: MouseEvent<HTMLDivElement>) => {
-		if (e.target === e.currentTarget) onClose();
-	};
+	if (!shouldRender) return null;
+
+	if (!isOpen) return null;
 
 	return createPortal(
-		<div
-			className="modal-overlay"
-			onClick={handleOverlayClick}
-			aria-hidden="false"
-		>
+		<ModalContext value={{ close: handleClose }}>
+			{/* Overlay */}
 			<div
+				className={styles['overlay']}
+				ref={overlayRef}
+				data-state={animationState}
+				onAnimationEnd={handleAnimationEnd}
+				onClick={onOverlayClick}
+			/>
+
+			{/* Dialog */}
+			<div
+				className={styles['dialog']}
 				ref={dialogRef}
-				className="modal-dialog"
 				role="dialog"
-				aria-modal="true"
-				aria-labelledby={labelId}
-			>
-				<header className="modal-header">
-					<h2
-						id={labelId}
-						className="modal-title"
-					>
-						{title}
-					</h2>
+				aria-modal
+				aria-label={title}
+				tabIndex={-1}
+				data-state={animationState}
+				onAnimationEnd={handleAnimationEnd}>
+				{/* Header */}
+				<div className={styles['header']}>
+					<span className={styles['title']}>{title}</span>
 					<button
-						className="modal-close-x"
-						onClick={onClose}
+						onClick={() => handleClose(0)}
 						aria-label="Close"
-					>
-						&times;
+						className={styles['xBtn']}>
+						✕
 					</button>
-				</header>
+				</div>
 
-				<div className="modal-body">{children}</div>
+				{/* Content */}
+				<div className={styles['body']}>{children}</div>
 
-				<footer className="modal-footer">
+				{/* Footer */}
+				<div className={styles['footer']}>
 					<button
-						className="modal-btn modal-btn--close"
-						onClick={onClose}
-					>
-						Close
+						onClick={() => handleClose(0)}
+						className={styles['closeBtn']}>
+						Close {title}
 					</button>
-					{onSave !== undefined && (
+					{onSave && (
 						<button
-							className="modal-btn modal-btn--save"
-							onClick={onSave}
-						>
-							Save
+							onClick={() => onSave(1)}
+							className={styles['saveBtn']}>
+							Save {title}
 						</button>
 					)}
-				</footer>
+				</div>
 			</div>
-		</div>,
-		portalRoot
+		</ModalContext>,
+		portalRoot || document.body
 	);
 }

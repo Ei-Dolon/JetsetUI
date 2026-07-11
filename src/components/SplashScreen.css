@@ -1,0 +1,134 @@
+/* src/components/SplashScreen.css */
+
+/* Overlay 
+	Phases:
+	[default]	video plays	→ full black, video fills frame at z=9199
+	.is-tap		video ended	→ last frame stays visible;
+											"Tap to continue…" text overlays near
+											the bottom of the screen at z=9299.
+											White text, blue glow, transparent bg,
+											gentle pulse to draw attention.
+	.is-fading	user tapped	→ entire overlay (video + text) fades to opacity 0;
+											NO pointer-events:none
+											so overlay keeps blocking DApp clicks until onDismiss() unmounts it
+*/
+.splash {
+	position: fixed;
+	inset: 0;
+	z-index: 9199;
+
+	background: #000;
+	opacity: 1;
+
+	transition: opacity 0.6s ease-in-out;
+	overflow: hidden;
+
+	/* OPTIMISATION: Promotes the entire splash container to its own compositor 
+     layer, preventing browser layout recalculations during the 600ms fade. */
+	will-change: opacity;
+}
+
+.splash.is-fading {
+	opacity: 0;
+}
+
+/* ── Video ──────────────────────────────────────────────────────────────────
+   Cover the full overlay. Stays visible through all phases — last frame
+   shows behind the tap text. Whole overlay fades together in is-fading.
+   ─────────────────────────────────────────────────────────────────────────── */
+.splash__video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+/* ── Tap zone ───────────────────────────────────────────────────────────────
+   Full-screen click/tap target. Not focusable itself — see .splash__tap-label
+   for the keyboard-focusable element.
+   ─────────────────────────────────────────────────────────────────────────── */
+.splash__tap {
+	position: absolute;
+	inset: 0;
+	z-index: 9299;
+
+	background: transparent;
+	cursor: pointer;
+}
+
+/* ── Tap label ──────────────────────────────────────────────────────────────
+   Positioned near the bottom, clear of iOS home-indicator / nav-bar safe area.
+   12vh on wide/short (desktop) viewports, up to 16vh on narrow/tall (mobile)
+   viewports where thumb-zone + nav bar padding matters more.
+   ─────────────────────────────────────────────────────────────────────────── */
+.splash__tap-label {
+	position: absolute;
+	bottom: clamp(12vh, 14vw, 16vh);
+	left: 50%;
+	transform: translateX(-50%);
+	width: 90%;
+
+	text-align: center;
+	color: #fff;
+	font-family: 'Inter', system-ui, sans-serif;
+	font-weight: 600;
+	font-size: clamp(1.2rem, 4vw, 2rem);
+	letter-spacing: 0.1em;
+	margin: 0;
+
+	background: transparent;
+	border: none;
+	cursor: pointer;
+
+	/* CRITICAL ACCESSIBILITY FIX: Since this functions as a clickable button, 
+     we must explicitly force pointer-events to bubble through the 
+     invisible, absolute-positioned full-screen .splash__tap layer. */
+	pointer-events: auto;
+
+	/* OPTIMISED BLUE GLOW:
+     Layer 1 (White core): Maintains raw text geometry definition.
+     Layer 2 (Intense cyan-blue): Adds high-energy perimeter bloom.
+     Layer 3 (Deep blue aura): Creates a wide, environmental backing glow.
+     Layer 4 (Ambient Drop Shadow): Insulates text contrast from video artifacts. */
+	text-shadow:
+		0 0 4px rgba(255, 255, 255, 0.5),
+		0 0 12px rgba(0, 110, 255, 0.9),
+		0 0 30px rgba(0, 50, 255, 0.6),
+		0 3px 8px rgba(0, 0, 0, 0.8);
+
+	/* OPTIMISATION: Stops style recalculation cascading down to child nodes 
+     during the infinite breathing pulse sequence. */
+	will-change: opacity;
+	/* Gentle breathing pulse to draw attention without being aggressive */
+	animation: tapPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes tapPulse {
+	/* ACCESSIBILITY OPTIMISATION: Lowering opacity to 0.35 can cause WCAG contrast 
+     failures on dynamic video backgrounds. Keeping the floor at 0.55 ensures 
+     the phrase remains fully legible throughout the entire pulse wave cycle. */
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.55;
+	}
+}
+
+.splash__tap-label:focus-visible {
+	/* OPTIMISATION: Replaced outline with a box-shadow. Standard CSS outlines 
+     frequently fail to respect border-radius values in older Chromium builds. */
+	outline: none;
+	box-shadow: 0 0 0 1px rgba(120, 180, 255, 0.65);
+	border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.splash__tap-label {
+		animation: none;
+		opacity: 1;
+	}
+}
