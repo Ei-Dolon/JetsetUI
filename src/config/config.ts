@@ -33,7 +33,7 @@ export const connectors = [
 			url: CONSTS.DAPP_URL,
 			icons: [CONSTS.JETSETUI_SVG_URL],
 		},
-		showQrModal: true,
+		showQrModal: false,
 	}),
 
 	// metaMask() removed — multiInjectedProviderDiscovery: true means MetaMask self-announces via EIP-6963

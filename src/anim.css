@@ -1,0 +1,119 @@
+/* Animated elements */
+
+/* Jetset Logo */
+.animLogo {
+	width: 153px;
+	height: 132px;
+	background: url('./assets/JetsetLogo.png') 0 0 no-repeat;
+	animation: spriteLogo 0.8s steps(2) infinite;
+}
+@keyframes spriteLogo {
+	to {
+		background-position: -306px 0;
+	}
+}
+
+/* Animated Footer - visual display that DApp working */
+.animBar {
+	margin-bottom: 0; /* Flushed to the very bottom of the visible screen */
+	width: 360px;
+	height: 60px;
+	background: url('./assets/Footer.png') 0 0 no-repeat;
+	animation: spriteBar 3.2s steps(16) infinite;
+}
+@keyframes spriteBar {
+	to {
+		background-position: -5760px 0;
+	}
+}
+
+.animLogo,
+.animBar {
+	pointer-events: none;
+}
+
+/*
+   BUTTONS - SPRITE ANIMATIONS
+*/
+/* Base structural styles shared by all button states */
+.wallet-btn-sprite {
+	height: 72px;
+	width: 66px;
+	user-select: none;
+	-webkit-user-select: none;
+	display: inline-block; /* Ensures dimensions respect height/width */
+	border: none;
+	background-color: transparent;
+	padding: 0;
+}
+
+.btnReceive {
+	width: 66px;
+	height: 72px;
+	background-image: url('./assets/btnReceive.png');
+	animation: animReceive 1.6s steps(4) infinite;
+}
+@keyframes animReceive {
+	to {
+		background-position: -264px 0;
+	}
+}
+
+.btnBuy {
+	width: 66px;
+	height: 72px;
+	background-image: url('./assets/btnBuy.png');
+	animation: animBuy 1.6s steps(4) infinite;
+}
+@keyframes animBuy {
+	to {
+		background-position: -264px 0;
+	}
+}
+
+.btnTipTap {
+	width: 66px;
+	height: 72px;
+	background-image: url('./assets/btnTipTap.png');
+	animation: animTipTap 1.6s steps(4) infinite;
+}
+@keyframes animTipTap {
+	to {
+		background-position: -264px 0;
+	}
+}
+
+/* --- STATE 1: CONNECT --- */
+.wallet-btn-sprite.animateConnect {
+	background: url('./assets/btnConnect.png') 0 0 no-repeat;
+	animation: spriteBtnConnect 1.6s steps(4) infinite;
+	cursor: pointer;
+	margin-bottom: -12px;
+}
+@keyframes spriteBtnConnect {
+	to {
+		background-position: -264px 0;
+	}
+}
+
+/* --- STATE 2: CONNECTING --- */
+@keyframes spriteBtnConnecting {
+	to {
+		background-position: -132px 0;
+	}
+}
+.wallet-btn-sprite.animateConnecting {
+	background: url('./assets/btnConnecting.png') 0 0 no-repeat;
+	animation: spriteBtnConnecting 0.8s steps(2) infinite;
+	pointer-events: none;
+	cursor: default;
+}
+
+/* --- STATE 3: DISCONNECT --- */
+.wallet-btn-sprite.btnDisconnect {
+	background: url('./assets/btnDisconnect.png') 0 0 no-repeat;
+	pointer-events: auto;
+	cursor: pointer;
+	animation: none;
+	touch-action: manipulation;
+}

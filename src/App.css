@@ -1,26 +1,171 @@
-.app-header {
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: calc(140px + env(safe-area-inset-top, 0px));
-	height: 140px;
-	z-index: 10;
+/* ./App.css */
+
+header {
+	grid-area: header;
+	display: flex;
+	z-index: 100;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+
 }
 
-.app-content {
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: calc(140px + env(safe-area-inset-top, 0px));
-	bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+main {
+	grid-area: main;
+	z-index: 50;
+	height: 100%;
+	min-height: 0;
+	/* Scrollable Behavior Configuration */
+	overflow-x: hidden;
 	overflow-y: auto;
-	z-index: 5;
+	display: flex;
+	flex-direction: column;
+	border-radius: 8px;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
 }
 
-.app-footer {
-	position: fixed;
-	left: 0;
-	right: 0;
-	bottom: calc(100px + env(safe-area-inset-bottom, 0px));
-	z-index: 10;
+main::-webkit-scrollbar {
+	width: 8px;
+}
+
+main::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+main::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.25);
+	border-radius: 999px;
+}
+
+footer {
+	grid-area: footer;
+	z-index: 100;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.65);
+}
+
+/* ==========================================================================
+   4. CONTENT AND INNER COMPONENT STYLES
+   ========================================================================== */
+
+/* Header Content Elements */
+.header-logo {
+	width: 153px;
+	height: 132px;
+	object-fit: contain;
+	background: url('./assets/JetsetLogo.png') 0 0 no-repeat;
+	animation: spriteLogo 0.8s steps(2) infinite;
+}
+@keyframes spriteLogo {
+	to {
+		background-position: -306px 0;
+	}
+}
+
+.settings-icon {
+	width: 48px;
+	height: 48px;
+	position: absolute;
+	right: 40px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+/* Curved Corner Gradient Border Cards inside Main Content Container */
+.metal-card {
+	position: relative;
+	border-radius: 16px;
+	background: #181818; /* Dark interior fill for card clarity */
+	padding: 24px;
+	box-shadow:
+		6px 6px 16px rgba(0, 0, 0, 0.4),
+		3px 3px 8px rgba(255, 255, 255, 0.03);
+
+	/* Advanced CSS border gradient implementation hack */
+	border: 2px solid transparent;
+	background-clip: padding-box, border-box;
+	background-image:
+		linear-gradient(#181818, #181818),
+		linear-gradient(225deg, var(--gradient-start), var(--gradient-end));
+}
+
+/* Footer Animated Layout Component Bar */
+.animated-bar {
+	width: 360px;
+	height: 60px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	padding-top: 0;
+	background: url('./assets/Footer.png') 0 0 no-repeat;
+	animation: spriteBar 3.2s steps(16) infinite;
+}
+@keyframes spriteBar {
+	to {
+		background-position: -5760px 0;
+	}
+}
+
+/* ==========================================================================
+   5. THREE-STATE WALLET SPRITE SYSTEM
+   ========================================================================== */
+.wallet-btn-trigger {
+	width: 66px;
+	height: 72px;
+	border: none;
+	cursor: pointer;
+	background: transparent;
+	position: relative;
+	z-index: 105;
+	margin-top: -28px;
+}
+
+.wallet-btn-sprite {
+	height: 72px;
+	width: 66px;
+	display: inline-block;
+	border: none;
+	background-color: transparent;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+/* STATE 1: DISCONNECTED / CONNECT PROMPT */
+@keyframes spriteBtnConnect {
+	to {
+		background-position: -264px 0;
+	}
+}
+.wallet-btn-sprite.animateConnect {
+	background: url('./assets/btnConnect.png') 0 0 no-repeat;
+	animation: spriteBtnConnect 1.6s steps(4) infinite;
+	cursor: pointer;
+	touch-action: manipulation;
+}
+
+/* STATE 2: CONNECTING STATUS IN PROGRESS */
+@keyframes spriteBtnConnecting {
+	to {
+		background-position: -132px 0;
+	}
+}
+.wallet-btn-sprite.animateConnecting {
+	background: url('./assets/btnConnecting.png') 0 0 no-repeat;
+	animation: spriteBtnConnecting 0.8s steps(2) infinite;
+	pointer-events: none;
+	cursor: default;
+}
+
+/* STATE 3: CONNECTED SUCCESS / DISCONNECT TRIGGER */
+.wallet-btn-sprite.btnDisconnect {
+	background: url('./assets/btnDisconnect.png') 0 0 no-repeat;
+	pointer-events: auto;
+	cursor: pointer;
+	animation: none;
+	touch-action: manipulation;
 }

@@ -6,6 +6,13 @@ peerDependencyRules:
         - '@solana/web3.js'
     allowedVersions:
         'typescript': '6.0.3'
+        vite: '*'
+    allowAny:
+        - vite
 overrides:
     '@paulmillr/qr': '0.3.0'
     'uuid': '14.0.1'
+    vite: 'catalog:'
+catalog:
+    vite: npm:@voidzero-dev/vite-plus-core@0.2.4
+    vite-plus: 0.2.4
