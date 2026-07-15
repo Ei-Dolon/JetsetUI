@@ -1,13 +1,14 @@
-# JetsetUI v0.0.3-alpha
+# JetsetUI v0.0.18-alpha
 
-**Toolchain:** Vite+ v0.1.24
+**Toolchain:** Vite+ v0.2.4-beta
 
 **Main Stack:**  
 [React v19.2.x](https://react.dev/)  
-[Wagmi v3.6.x](https://wagmi.sh)  
-[viem v2.48.x](https://viem.sh)  
+[Wagmi v3.7.x](https://wagmi.sh)  
+[viem v2.55.x](https://viem.sh)  
 [@tanstack/react-query v5.101.x](https://tanstack.com/query/latest/)  
-[Typescript v6.0.3](https://typescriptlang.org/)
+[Typescript v7](https://typescriptlang.org/)
+ConnectKit v1.9.2
 
 ## Development Environment:
 
