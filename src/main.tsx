@@ -31,7 +31,7 @@ createRoot(document.getElementById('root')!).render(
 					options={{
 						walletConnectName: 'WalletConnect',
 						walletConnectCTA: 'both', // Shows both the QR code and URI link
-						overlayBlur: 8, // Set as a percentage/integer for backdrop-filter
+						overlayBlur: 8, // Set as a integer for backdrop-blur
 						language: 'en-US',
 						embedGoogleFonts: false,
 						bufferPolyfill: true, // Ensures native node Buffers polyfill in Vite

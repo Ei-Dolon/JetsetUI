@@ -1,7 +1,11 @@
 import { defineConfig } from 'vite-plus';
-import { version } from './package.json';
+import pkg from './package.json';
 
 export default defineConfig({
+	define: {
+		// This injects the version key directly into Vite's environment compilation step
+		'import.meta.env.VITE_APP_VERSION': JSON.stringify(pkg.version),
+	},
 	staged: { 'src/**/*.{ts,tsx,js,jsx}': 'vp check --fix' },
 	fmt: {
 		ignorePatterns: ['dist/**'],
@@ -36,21 +40,13 @@ export default defineConfig({
 		},
 		jsPlugins: [{ name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' }],
 	},
-	run: {
-		tasks: {
-			'fetch:prices': {
-				// Runs a lightweight Node native fetch operation
-				command: 'node ./src/config/fetchPriceData.js',
-			},
-		},
-	},
 	plugins: [
 		{
 			name: 'html-transform',
 			transformIndexHtml(html) {
 				return html.replace(
 					/<title>(.*?)<\/title>/,
-					`<title>JetsetUI v${version} - Jetset DApps Frontend</title>`
+					`<title>JetsetUI v${pkg.version} - Jetset DApps Frontend</title>`
 				);
 			},
 		},

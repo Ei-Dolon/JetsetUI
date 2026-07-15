@@ -7,10 +7,10 @@
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
-		"dev": "vp run fetch:prices && vp dev",
+		"dev": "node buildData.js && vp dev",
 		"lint": "vp lint --type-aware",
 		"check": "vp check --fix",
-		"build": "vp run fetch:prices && vp build",
+		"build": "node buildData.js && vp build",
 		"preview": "vp preview",
 		"prepare": "vp config"
 	},

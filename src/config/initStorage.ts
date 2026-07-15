@@ -8,7 +8,7 @@ export async function initStorage() {
 
 	const res = await fetch('/priceData.json');
 	if (!res.ok) {
-		throw new Error(`Unable to load /priceData.json: ${res.status}`);
+		throw new Error(`Unable to load priceData.json: ${res.status}`);
 	}
 
 	// Generate clean ISO 8601 UTC timestamp: YYYYMMDDhhmm

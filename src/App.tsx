@@ -1,7 +1,6 @@
 import { ConnectKitButton } from 'connectkit';
 import './App.css';
 import './anim.css';
-import '@fontsource-variable/inter';
 
 const WalletButton = () => {
 	return (
@@ -45,6 +44,7 @@ const WalletButton = () => {
 const App = () => {
 	return (
 		<>
+			{/* display universal frontend header and footer */}
 			<header className="metallic-surface">
 				<span className="header-logo" />
 			</header>

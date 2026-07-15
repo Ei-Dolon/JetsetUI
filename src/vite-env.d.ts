@@ -19,3 +19,16 @@ interface Window {
 declare module '*.css';
 declare module '@fontsource-variable/inter';
 declare module '@fontsource-variable/inter/index.css';
+
+// SVG Support Definitions
+declare module '*.svg' {
+	const content: string;
+	export default content;
+}
+
+// Optional: Include this if your build tool allows importing SVGs directly as React Components
+declare module '*.svg?react' {
+	import * as React from 'react';
+	const ReactComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+	export default ReactComponent;
+}

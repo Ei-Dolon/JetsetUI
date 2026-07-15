@@ -15,6 +15,15 @@ if (!projectId) {
 	throw new Error('WalletConnect Project ID missing — check cloud.reown.com');
 }
 
+const getWalletMetadataUrl = () => {
+	if (typeof window === 'undefined') {
+		return CONSTS.DAPP_URL;
+	}
+
+	const { origin, pathname } = window.location;
+	return `${origin}${pathname.endsWith('/') ? pathname : `${pathname}/`}`;
+};
+
 // SSR/Netlify-safe storage (harmless guard for a Vite SPA, good habit)
 const storage =
 	typeof window !== 'undefined' ? createStorage({ storage: window.localStorage }) : undefined;
@@ -30,7 +39,7 @@ export const connectors = [
 		metadata: {
 			name: CONSTS.DAPP_NAME,
 			description: CONSTS.DAPP_DESCRIPTION,
-			url: CONSTS.DAPP_URL,
+			url: getWalletMetadataUrl(),
 			icons: [CONSTS.JETSETUI_SVG_URL],
 		},
 		showQrModal: false,
