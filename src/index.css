@@ -35,9 +35,9 @@ html[data-theme='light'] {
 
 	/* Typography - system font stack */
 	/* system-ui = Segoe UI (Windows), Roboto (Android), Ubuntu (Linux), San Francisco (macOS/iOS) */
-	--font-sans: 'Inter Variable', system-ui, sans-serif;
+	--font-sans: Inter, system-ui, sans-serif;
 	--font-mono: ui-monospace;
-	
+
 	/* Modern text rendering */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -68,7 +68,8 @@ html[data-theme='light'] {
 	padding: 0;
 }
 
-html, body {
+html,
+body {
 	height: 100%;
 	width: 100%;
 	font-size: clamp(12px, 1.5vw, 20px);
@@ -81,42 +82,41 @@ html, body {
 }
 
 #root {
-	height: 100%;
-	width: 100%;
-
 	/* Complete Grid-Driven Layout Structure */
+	min-height: 100vh;
+	height: 100vh;
 	display: grid;
 	grid-template-areas:
 		'header'
 		'main'
 		'footer';
 	grid-template-columns: 1fr;
-	grid-template-rows: var(--header-height) 1fr var(--footer-height);	
+	grid-template-rows: var(--header-height) 1fr var(--footer-height);
 }
 
 .metallic-surface {
 	position: relative;
 	overflow: hidden;
 	background:
-	 url('/assets/texture2.png') repeat,
-  		radial-gradient(ellipse at top right, #121289, transparent 40%),
-  		radial-gradient(ellipse at bottom left, var(--metal-blue-elec), transparent 50%),
-  		linear-gradient(225deg, var(--metal-purple), var(--metal-blue-mid));
+		url('./assets/texture2.png') repeat,
+		radial-gradient(ellipse at top right, #121289, transparent 40%),
+		radial-gradient(ellipse at bottom left, var(--metal-blue-elec), transparent 50%),
+		linear-gradient(225deg, var(--metal-purple), var(--metal-blue-mid));
 }
 
 /* Noise overlay technique utilizing the asset texture */
 .metallic-surface::before {
-	content: "";
+	content: '';
 	position: absolute;
 	inset: 0;
-	background: url('/assets/texture2.png') repeat;
-	opacity: 0.08;
+	background: url('./assets/texture2.png') repeat;
+	opacity: 0.04;
 	pointer-events: none;
-	z-index: 2;
+	z-index: 51;
 }
 
 /* Ensure children sit nicely above the pseudo-element texture */
 .metallic-surface > * {
 	position: relative;
-	z-index: 2;
+	z-index: 51;
 }

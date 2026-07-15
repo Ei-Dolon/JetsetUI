@@ -12,11 +12,11 @@ export async function initStorage() {
 	}
 
 	// Generate clean ISO 8601 UTC timestamp: YYYYMMDDhhmm
-	const cleanTimestamp = new Date().toISOString().replace(/[-:]|\.\d{3}/g, '');
+	const cleanTimestamp = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '');
 
 	// Set device-level defaults
 	localStorage.setItem('jetsetui_version', appVersion);
 	localStorage.setItem('priceData_version', cleanTimestamp);
-	localStorage.setItem('selFiat', 'usd');
 	localStorage.setItem('priceData', JSON.stringify(res));
+	localStorage.setItem('selFiat', 'usd');
 }
