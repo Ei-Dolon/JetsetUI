@@ -163,3 +163,12 @@ footer {
 	animation: none;
 	touch-action: manipulation;
 }
+
+.chain-icon {
+	width: 26px;
+	height: 26px;
+	flex-shrink: 0;
+	pointer-events: none;
+	bottom: 50%;
+	transform: translateY(25%);
+}

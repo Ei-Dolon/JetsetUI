@@ -5,6 +5,8 @@ import { formatEther } from 'viem';
 import { jetsetABI } from '../config/abi';
 import { CONSTS } from '../config/consts';
 import './PortfolioBalances.css';
+import BnbIcon from '../assets/icons/BNB.svg';
+import JtsIcon from '../assets/icons/jetset.svg';
 
 interface PriceData {
 	binancecoin?: Record<string, number>;
@@ -20,7 +22,7 @@ interface AssetRowProps {
 	fiatSymbol?: string;
 }
 
-function AssetRow({ icon, name, symbol, balance, fiatValue, fiatSymbol = '$' }: AssetRowProps) {
+function AssetRow({ icon, name, symbol, balance, fiatValue, fiatSymbol = '$ ' }: AssetRowProps) {
 	return (
 		<div className="asset-row">
 			{/* Row 1: Icon + Name / Balance + Symbol */}
@@ -135,7 +137,12 @@ export default function PortfolioBalances() {
 	}
 
 	return (
-		<div className="portfolio-container">
+		<div className="metal-card">
+			{/* Total row */}
+			<div className="portfolio-total">
+				<h2>Total Portfolio Value: $ {totalFiat}</h2>
+				<h3></h3>
+			</div>
 			<AssetRow
 				name="BNB"
 				symbol="BNB"
@@ -143,7 +150,7 @@ export default function PortfolioBalances() {
 				fiatValue={bnbFiatValue}
 				icon={
 					<img
-						src="../assets/icons/BNB.svg"
+						src={BnbIcon}
 						alt="BNB"
 						className="asset-icon"
 					/>
@@ -157,18 +164,12 @@ export default function PortfolioBalances() {
 				fiatValue={jetsetFiatValue}
 				icon={
 					<img
-						src="../assets/icons/jetset.svg"
+						src={JtsIcon}
 						alt="Jetset"
 						className="asset-icon"
 					/>
 				}
 			/>
-
-			{/* Total row */}
-			<div className="portfolio-total">
-				<span>Total Portfolio Value</span>
-				<span>${totalFiat}</span>
-			</div>
 		</div>
 	);
 }

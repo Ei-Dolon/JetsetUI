@@ -89,6 +89,7 @@ export default function App() {
 				return (
 					<>
 						<WalletLabel />
+						<br />
 						<PortfolioBalances />
 					</>
 				);
