@@ -8,6 +8,8 @@ const API_URL =
 	'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin,jetset&vs_currencies=usd,gbp,eur';
 const OUTPUT_PATH = path.resolve(__dirname, './src/assets/priceData.json');
 const META_PATH = path.resolve(__dirname, './src/assets/priceMeta.json');
+const PUBLIC_OUTPUT_PATH = path.resolve(__dirname, './public/priceData.json');
+const PUBLIC_META_PATH = path.resolve(__dirname, './public/priceMeta.json');
 
 // produce a new UTC timestamp in a 12 character format YYYYMMDDHHmm
 function getUtcTimestampString() {
@@ -42,10 +44,12 @@ async function getPriceData() {
 		const data = await response.json();
 		const metaPayload = { priceData_version: getUtcTimestampString() };
 
-		// Write out the raw structural output to your source layout
+		// Write out the raw structural output to both the app source assets and the public fallback location
 		fs.writeFileSync(OUTPUT_PATH, JSON.stringify(data, null, 0), 'utf-8');
 		fs.writeFileSync(META_PATH, JSON.stringify(metaPayload, null, 0), 'utf-8');
-		process.stdout.write('priceData.json generated successfully!\n');
+		fs.writeFileSync(PUBLIC_OUTPUT_PATH, JSON.stringify(data, null, 0), 'utf-8');
+		fs.writeFileSync(PUBLIC_META_PATH, JSON.stringify(metaPayload, null, 0), 'utf-8');
+		process.stdout.write('priceData.json and priceMeta.json generated successfully!\n');
 	} catch (error) {
 		process.stderr.write('Failed to pull price data:' + error.message + '\n');
 		process.exit(1);

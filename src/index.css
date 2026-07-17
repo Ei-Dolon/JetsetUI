@@ -83,7 +83,6 @@ body {
 
 #root {
 	/* Complete Grid-Driven Layout Structure */
-	min-height: 100vh;
 	height: 100vh;
 	display: grid;
 	grid-template-areas:
@@ -98,7 +97,6 @@ body {
 	position: relative;
 	overflow: hidden;
 	background:
-		url('./assets/texture2.png') repeat,
 		radial-gradient(ellipse at top right, #121289, transparent 40%),
 		radial-gradient(ellipse at bottom left, var(--metal-blue-elec), transparent 50%),
 		linear-gradient(225deg, var(--metal-purple), var(--metal-blue-mid));
@@ -110,7 +108,7 @@ body {
 	position: absolute;
 	inset: 0;
 	background: url('./assets/texture2.png') repeat;
-	opacity: 0.04;
+	opacity: 0.4;
 	pointer-events: none;
 	z-index: 51;
 }
