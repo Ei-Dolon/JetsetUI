@@ -41,7 +41,7 @@ const WalletButton = () => {
 	);
 };
 
-const App = () => {
+export default function App() {
 	return (
 		<>
 			{/* display universal frontend header and footer */}
@@ -88,5 +88,4 @@ const App = () => {
 			</footer>
 		</>
 	);
-};
-export default App;
+}

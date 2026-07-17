@@ -6,7 +6,12 @@ export default defineConfig({
 		// This injects the version key directly into Vite's environment compilation step
 		'import.meta.env.VITE_APP_VERSION': JSON.stringify(pkg.version),
 	},
-	staged: { 'src/**/*.{ts,tsx,js,jsx}': 'vp check --fix' },
+
+	staged: {
+		// Cleaner, native hook execution path for Vite+
+		'*': 'vp check --fix',
+	},
+
 	fmt: {
 		ignorePatterns: ['dist/**'],
 		printWidth: 100,
@@ -31,6 +36,7 @@ export default defineConfig({
 			},
 		],
 	},
+
 	lint: {
 		ignorePatterns: ['dist/**'], // 'node_modules/**' is safely ignored by default
 		options: { typeAware: true, typeCheck: true },
@@ -40,6 +46,7 @@ export default defineConfig({
 		},
 		jsPlugins: [{ name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' }],
 	},
+
 	plugins: [
 		{
 			name: 'html-transform',
@@ -51,6 +58,7 @@ export default defineConfig({
 			},
 		},
 	],
+
 	server: { port: 5173, strictPort: true },
 	build: { sourcemap: true },
 	preview: { port: 8080 },

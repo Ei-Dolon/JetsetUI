@@ -7,7 +7,7 @@
 			"name": "Vite+: Launch Browser & Debug",
 			"url": "http://localhost:5173",
 			"webRoot": "${workspaceFolder}",
-			"timeout": 30000,
+			"timeout": 10000,
 			"sourceMapPathOverrides": {
 				"webpack:///./~/*": "${workspaceFolder}/node_modules/*",
 				"webpack:///src/*": "${workspaceFolder}/src/*",

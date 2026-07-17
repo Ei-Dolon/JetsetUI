@@ -11,7 +11,7 @@
 		/* Module Resolution */
 		"module": "ESNext",
 		"moduleResolution": "bundler",
-		"resolveJsonModule": true,
+		"resolveJsonModule": true /* allow importing json modules within code */,
 
 		/* Strict Type Checking & JS Support */
 		"noEmit": true,
@@ -26,10 +26,10 @@
 		"strict": true,
 
 		/* Interop & Output */
-		"esModuleInterop": true,
+		"esModuleInterop": true /* enables allowSyntheticDefaultImports allowing older modules to work by wrapping them as the default export */,
 		"forceConsistentCasingInFileNames": true,
 		"skipLibCheck": true
 	},
-	"include": ["vite.config.ts", "src"],
+	"include": ["src"],
 	"exclude": ["node_modules", "dist"]
 }

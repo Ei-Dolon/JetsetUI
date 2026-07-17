@@ -1,1 +1,7 @@
-{ "folders": [{ "path": "." }], "settings": { "js/ts.tsdk.path": "node_modules/typescript/lib" } }
+{
+	"folders": [{ "path": "." }],
+	"settings": {
+		"js/ts.tsdk.path": "node_modules/typescript/lib",
+		"workbench.browser.dataStorage": "workspace",
+	},
+}
