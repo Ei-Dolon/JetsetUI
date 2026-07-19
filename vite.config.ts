@@ -17,7 +17,7 @@ const pureAnnotationCompatPlugin = () => ({
 });
 
 export default defineConfig({
-	base: '/dapp/jetsetui/',
+	base: './',
 	define: {
 		// This injects the version key directly into Vite's environment compilation step
 		'import.meta.env.VITE_APP_VERSION': JSON.stringify(pkg.version),
