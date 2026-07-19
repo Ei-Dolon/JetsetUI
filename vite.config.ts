@@ -1,7 +1,23 @@
 import { defineConfig } from 'vite-plus';
 import pkg from './package.json';
 
+const pureAnnotationCompatPlugin = () => ({
+	name: 'pure-annotation-compat',
+	transform(code: string, id: string) {
+		if (!/[\\/]node_modules[\\/]ox[\\/]/.test(id)) {
+			return null;
+		}
+
+		if (!code.includes('/*#__PURE__*/')) {
+			return null;
+		}
+
+		return code.replace(/\/\*#__PURE__\*\//g, '');
+	},
+});
+
 export default defineConfig({
+	base: '/dapp/jetsetui/',
 	define: {
 		// This injects the version key directly into Vite's environment compilation step
 		'import.meta.env.VITE_APP_VERSION': JSON.stringify(pkg.version),
@@ -48,6 +64,7 @@ export default defineConfig({
 	},
 
 	plugins: [
+		pureAnnotationCompatPlugin(),
 		{
 			name: 'html-transform',
 			transformIndexHtml(html) {
@@ -59,7 +76,6 @@ export default defineConfig({
 		},
 	],
 
-	server: { port: 5173, strictPort: true },
-	build: { sourcemap: true },
+	build: { sourcemap: false },
 	preview: { port: 8080 },
 });
