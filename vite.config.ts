@@ -59,7 +59,7 @@ export default defineConfig({
 		},
 	],
 
-	server: { port: 5173, strictPort: true },
-	build: { sourcemap: true },
-	preview: { port: 8080 },
+	//server: { port: 5173, strictPort: true },
+	//build: { sourcemap: true },
+	//preview: { port: 8080 },
 });
