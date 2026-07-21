@@ -25,15 +25,9 @@ const getWalletMetadataUrl = () => {
 };
 
 // SSR/Netlify-safe storage (harmless guard for a Vite SPA, good habit)
-const storage =
-	typeof window !== 'undefined' ? createStorage({ storage: window.localStorage }) : undefined;
+const storage = typeof window !== 'undefined' ? createStorage({ storage: window.localStorage }) : undefined;
 
 export const connectors = [
-	// EIP-6963 handles MetaMask, Brave, Trust, etc.
-	// injected() here covers wallets that only announce via window.ethereum
-	// (pre-EIP-6963 fallback). No shimDisconnect — removed in wagmi v2.
-	injected(),
-
 	walletConnect({
 		projectId,
 		metadata: {
@@ -48,6 +42,10 @@ export const connectors = [
 	// metaMask() removed — multiInjectedProviderDiscovery: true means MetaMask self-announces via EIP-6963
 
 	coinbaseWallet({ appName: CONSTS.DAPP_NAME, appLogoUrl: CONSTS.JETSETUI_SVG_URL }),
+	// EIP-6963 handles MetaMask, Brave, Trust, etc.
+	// injected() here covers wallets that only announce via window.ethereum
+	// (pre-EIP-6963 fallback). No shimDisconnect — removed in wagmi v2.
+	injected(),
 ];
 
 export const config = createConfig({
