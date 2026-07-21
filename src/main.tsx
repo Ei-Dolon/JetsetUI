@@ -14,7 +14,6 @@ import { WagmiProvider } from 'wagmi';
 import { config } from './config/config';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ConnectKitProvider } from 'connectkit';
-import '@fontsource-variable/inter/index.css';
 import './index.css';
 import App from './App';
 
@@ -25,9 +24,6 @@ createRoot(document.getElementById('root')!).render(
 		<WagmiProvider config={config}>
 			<QueryClientProvider client={queryClient}>
 				<ConnectKitProvider
-					customTheme={{
-						'--ck-font-family': "var(--font-sans), 'Inter Variable', sans-serif",
-					}}
 					options={{
 						walletConnectName: 'WalletConnect',
 						walletConnectCTA: 'both', // Shows both the QR code and URI link

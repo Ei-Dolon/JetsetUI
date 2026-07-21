@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useConnection } from 'wagmi';
 import { ConnectKitButton } from 'connectkit';
 import './App.css'; // Main stylesheet
 // Sub-components (imported or defined here)
-import WalletLabel from './components/WalletLabel';
-import PortfolioBalances from './components/PortfolioBalances';
+const WalletLabel = lazy(() => import('./components/WalletLabel'));
+const PortfolioBalances = lazy(() => import('./components/PortfolioBalances'));
 // import JetsetGraph from './components/JetsetGraph';
 // import ConnectedButtons from './components/ConnectedButtons';
 import { initStorage } from './config/initStorage';
@@ -87,11 +87,16 @@ export default function App() {
 
 			case 'connected':
 				return (
-					<>
+					<Suspense
+						fallback={
+							<div className="metal-card">
+								<p>Loading wallet data...</p>
+							</div>
+						}>
 						<WalletLabel />
 						<br />
 						<PortfolioBalances />
-					</>
+					</Suspense>
 				);
 
 			default:
@@ -99,8 +104,7 @@ export default function App() {
 					<>
 						<div className="metal-card">
 							<p style={{ textAlign: 'center' }}>
-								Please connect an installed wallet that holds BNB Smart Chain
-								assets.
+								Please connect an installed wallet that holds BNB Smart Chain assets.
 							</p>
 						</div>
 					</>

@@ -35,7 +35,7 @@ html[data-theme='light'] {
 
 	/* Typography - system font stack */
 	/* system-ui = Segoe UI (Windows), Roboto (Android), Ubuntu (Linux), San Francisco (macOS/iOS) */
-	--font-sans: inter, system-ui, sans-serif;
+	--font-sans: system-ui, sans-serif;
 	--font-mono: ui-monospace;
 
 	/* Modern text rendering */
@@ -76,7 +76,7 @@ body {
 	overflow: hidden;
 	color: var(--color-text);
 	background-color: var(--color-bg);
-	font-family: var(--font-sans), 'Inter Variable', system-ui, sans-serif;
+	font-family: system-ui, sans-serif;
 	text-rendering: optimizeLegibility;
 	font-synthesis: none;
 }

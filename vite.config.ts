@@ -1,21 +1,6 @@
 import { defineConfig } from 'vite-plus';
 import pkg from './package.json';
 
-const pureAnnotationCompatPlugin = () => ({
-	name: 'pure-annotation-compat',
-	transform(code: string, id: string) {
-		if (!/[\\/]node_modules[\\/]ox[\\/]/.test(id)) {
-			return null;
-		}
-
-		if (!code.includes('/*#__PURE__*/')) {
-			return null;
-		}
-
-		return code.replace(/\/\*#__PURE__\*\//g, '');
-	},
-});
-
 export default defineConfig({
 	base: './',
 	define: {
@@ -30,7 +15,7 @@ export default defineConfig({
 
 	fmt: {
 		ignorePatterns: ['dist/**'],
-		printWidth: 100,
+		printWidth: 120,
 		tabWidth: 4,
 		useTabs: true,
 		trailingComma: 'es5',
@@ -46,25 +31,18 @@ export default defineConfig({
 		sortPackageJson: true,
 		overrides: [
 			{ files: ['**/*.json'], options: { trailingComma: 'none' } },
-			{
-				files: ['**/*.md'],
-				options: { proseWrap: 'preserve', embeddedLanguageFormatting: 'auto' },
-			},
+			{ files: ['**/*.md'], options: { proseWrap: 'preserve', embeddedLanguageFormatting: 'auto' } },
 		],
 	},
 
 	lint: {
 		ignorePatterns: ['dist/**'], // 'node_modules/**' is safely ignored by default
 		options: { typeAware: true, typeCheck: true },
-		rules: {
-			'no-console': ['error', { allow: ['error'] }],
-			'vite-plus/prefer-vite-plus-imports': 'error',
-		},
+		rules: { 'no-console': ['error', { allow: ['error'] }], 'vite-plus/prefer-vite-plus-imports': 'error' },
 		jsPlugins: [{ name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' }],
 	},
 
 	plugins: [
-		pureAnnotationCompatPlugin(),
 		{
 			name: 'html-transform',
 			transformIndexHtml(html) {
@@ -76,6 +54,24 @@ export default defineConfig({
 		},
 	],
 
-	build: { sourcemap: false },
+	build: {
+		sourcemap: false,
+		chunkSizeWarningLimit: 500,
+		rolldownOptions: {
+			output: {
+				codeSplitting: {
+					minSize: 20000,
+					minShareCount: 1,
+					groups: [
+						{ test: /node_modules\/react(?:-dom)?\//, name: 'react' },
+						{ test: /node_modules\/(wagmi|viem)\//, name: 'wallet' },
+						{ test: /node_modules\/(connectkit)\//, name: 'connect' },
+						{ test: /node_modules\/@tanstack\/react-query\//, name: 'query' },
+						{ test: /node_modules\/(react-qr-code)\//, name: 'ui' },
+					],
+				},
+			},
+		},
+	},
 	preview: { port: 8080 },
 });

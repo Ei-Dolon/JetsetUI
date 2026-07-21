@@ -20,7 +20,7 @@ Replace general instructions with specific success criteria and validation steps
 
 ### 5. Verification Mode
 
-Before answering, must **verify information using multiple search engines** and **cite authoritative sources**.
+Before answering, must **verify information using multiple search engines** and **cite authoritative sources**.  
 If verification is not possible, Copilot must not rely on memory or training data alone.
 
 ### 6. External‑Source‑First Mode
@@ -60,15 +60,15 @@ Jetset DApp Frontend - main connecting point for use of Jetset DApps, handles wa
 
 ### TipTap
 
-DApp provides simple method to tip using Jetset tokens, especially at Jetset sponsored events for example to tip your waiter, an artist's installation, or current DJ.
+DApp provides simple method to tip using Jetset tokens, especially at Jetset sponsored events for example to tip your waiter, an artist's installation, or current DJ.  
 Tip destination wallets are encoded into an error correcting QR Code which can be found on ID badges, stall signs, project banners, or in event literature.
 
 ## Project Rules
 
-For code generation use TypeScript ^6.0.3 with functional decomposition programming patterns.
+For code generation use TypeScript ^6.0.3 with functional decomposition programming patterns.  
 Jetset styling should be provided as a consistent branding with a css v3 file to accompany any code that includes tsx output for display.
 Use ai preferred markdown when providing explanations with code.
-When including source code for a file, the first line of the code should be a single line comment in the form //\_ relative/path/filename.ext relative path from the project root directory
+When including source code for a file, the first line of the code should be a single line comment in the form //_ relative/path/filename.ext relative path from the project root directory
 Example:
 
 ```ts
@@ -87,127 +87,303 @@ Example:
   */
 ```
 
-For code structure make use of Systems Analysis and Design patterns and rules, as much as possible, attempt production of explanations of overview at basic level for user, and indepth at competent level for developer.
-Model the following:
-Logical constructs.
-Data flow.
-Data dictionary.
+For code structure make use of Systems Analysis and Design patterns and rules, as much as possible, attempt production of explanations of overview at basic level for user, and indepth at competent level for developer.  
+Model the following:  
+Logical constructs.  
+Data flow.  
+Data dictionary.  
 Map of physical objects and relationships, include the logical constructs and how they relate, and show the data flow both between physical and logical objects/data structures/files, also if suitable please add mermaid.js data flow diagram code as well.
 
 ### Environment:
 
-Microsoft Windows 11 Pro - Dev software
-Ubuntu v26 (WSL2) - project files, dev utils
-Node.js v24 LTS
-IDE: VS Code
-Toolchain: Vite+
+Microsoft Windows 11 Pro - Dev software  
+Ubuntu v26 (WSL2) - project files, dev utils  
+Node.js v24 LTS  
+**IDE:** VS Code  
+**Extensions:**  
+VoidZero.vite-plus-extension-pack  
+oxc.oxc-vscode  
+vitest.explorer  
+ms-vscode-remote.vscode-remote-extensionpack
 
-[Vite+ ^0.2.1](https://viteplus.dev/)
+**Toolchain:** Vite+ [Vite+ ^0.2.1](https://viteplus.dev/)  
+**Code Versioning:** git, GitHub CLI, Examdiff Pro Master v15
 
 ### Library Version Website
 
-Following libraries are dependencies within project, and represent the lowest version number to use, websites include documentation.
-[Typescript v6.0.2](https://typescriptlang.org/)
-[Vite v8.x](https://vite.dev/)
-[React v19.2.5](https://react.dev/)
-[wagmi v3.6.9](https://wagmi.sh/)
-[viem v2.48.x](https://viem.sh/)
-[@tanstack/react-query v5.100.x](https://tanstack.com/query/latest/)
+Following libraries are dependencies within project, and represent the lowest version number to use, websites include documentation.  
+[Typescript v6.0.3](https://typescriptlang.org/)  
+[Vite v8.x](https://vite.dev/)  
+[React v19.2.7](https://react.dev/)  
+[wagmi v3.6.9](https://wagmi.sh/)  
+[viem v2.48.x](https://viem.sh/)  
+[@tanstack/react-query v5.101.x](https://tanstack.com/query/latest/)
 
 ### Blockchain: BNB Smart Chain
 
 **BlockChain Code:** bsc
 **BlockChain ID:** 56/0x38
-[**Block Explorer:** ](https://bscscan.com)
-**Native Coin (Name, Symbol, Decimals):** BNB, BNB, 18
+[**Block Explorer:** ](https://bscscan.com)  
+**Blockchain SVG Icon:** "https://jetsettoken.com/dapp/public/bsc.svg"
+
+**Native Coin (Name, Symbol, Decimals):** BNB, BNB, 18  
+**BNB SVG Icon:** "https://jetsettoken.com/dapp/public/BNB.svg"  
 **Coingecko ID:** binancecoin
 
 ### Blockchain: Jetset Token:
 
-**Token standard:** BEP-20
-**Name:** Jetset
-**Symbol:** JTS (was JET)
-**Decimals:** 18
-**Icon:** "https://jetsettoken.com/dapp/public/Jetset.svg"
-**Contract: ** 0x405BE90996e7F995A08C2FBD8d8822EF5b03466C
+**Token standard:** BEP-20  
+**Name:** Jetset  
+**Symbol:** JTS (was JET)  
+**Decimals:** 18  
+**Icon:** "https://jetsettoken.com/dapp/public/jetset.svg"  
+**Contract: ** 0x405BE90996e7F995A08C2FBD8d8822EF5b03466C  
+**Coingecko ID:** jetset
 
-Project Description = "JetsetUI - Jetset DApp Frontend"
-Project Name = jetsetui
+Project Description = "JetsetUI - Jetset DApp Frontend"  
+Project Name = jetsetui  
 Project Location = $HOME/jetsettoken.com/dapp/jetsetui/
 
-Project Description = "TipTap - Jetset Tipping DApp"
-Project Name = tiptap
+Project Description = "TipTap - Jetset Tipping DApp"  
+Project Name = tiptap  
 Project Location = $HOME/jetsettoken.com/dapp/tiptap/
 
-Assets Library = $HOME/jetsettoken.com/dapp/public/
-assets.txt //index of assets
-
-Graphic formats:
-Image: .png, .webp - name, dimensions
-Animations: .png - name, dimensions, frames, frame dimensions, note: frames are stored horizontally
-StateGraphics: .png name, dimensions, (matrix of frames, frame dimensions), note: each state is stored vertically in a logical ordering, if a state has frames these are stored horizontally as normal.
+Assets Library = $HOME/jetsettoken.com/dapp/public/  
+assets Index = assets.txt  
+**Graphic formats:**  
+Image: .png, .webp - name, dimensions  
+Animations: .png - name, dimensions, frames, frame dimensions, note: frames are stored horizontally  
+Video: intro.mp4  
+StateGraphics: .png name, dimensions, (matrix of frames, frame dimensions), note: each state is stored vertically in a logical ordering, if a state has frames these are stored horizontally as normal.  
 Icons: /icons/ .svg
-
-## Directory Structure:
-
-{Project}/
-.env // API secrets
-.copilot-instructions.md, AGENTS.md, CLAUDE.md, GEMINI.md // AI rules: Global, Project, Performance
-index.html // Vite project entry point
-tsconfig.json // typescript config
-vite.config.ts // Vite+ config
-
-./src/ // source code files
-main.tsx // Initial setup, render, and context wrappers
-index.css // global styles
-App.tsx // Main app control code
-App.css // App styles
-
-./src/config/
-abi.ts // contract ABI prototypes
-config.ts // wagmi, blockchain, and wallet setup
-consts.ts // project constants
-initStorage.ts // Initial DApp setup of locaStorage the first time the DApp is run on an user's device
-types.ts // types, data structures, objects, unions
-util.ts // general purpose utils
-version.ts // version controller
-
-./src/components/
-Component.tsx // React components - must starts with Uppercase character - UI elements , returns tsx
-Component.css // styling for component of same name
-
-./src/hooks/
-useHook.ts // React hooks - camelCase normally starts with use, control app logic and state, returns values and/or functions
-handleEvent.ts // event handlers - camelCase normally starts with handle
 
 ### User Flow
 
 1. JetsetUI DApp entry code initially supplied within the Jetset DApp Index at https://jetsettoken.com/dapp/index.html
 2. A script is used to open a new browser version with settings similar to a PWA i.e. "width=360,height=680,menubar=no,toolbar=no,location=no,status=no,scrollbars=yes,resizable=no"
-3. If JetsetUI is being run for the very first time on user's device, then a splashscreen is displayed at z=9199 and plays a video intro.mp4 for 6.8s, this covers the initialization of the DApp, setting up the localStorage and preloading asssets, before starting and displaying the DApp.
-4. First time intialization of a user's localStorage, setting up version number, price data version based on ISO 8601 date/time string based on UTC in form of YYYYMMDDThhmmssZ, default dapp settings, latest server provided price data stored, followed by customised DApp settings for each unique walet successfully connected to the DApp.
-5. The video ends final frame, and a softly glowing white message "Press to continue...", a click/tap anywhere within the DApp's window will cause the splashscreen to fade via css transition to apacity 0, which reveals the loaded DApp, the splashscreen module unloads itself.
-6. The vite entry file is https://jetsettoken.com/dapp/jetsetui/index.html which loads the main.tsx file in src/ within the div id="root".
-7. There is an additional div id modal-root for the modal windows e.g. Wallet Connection modal window, DApp Settings modal window, Receive funds QRcode modal window, Buy cryptocurrency from third party providers modal window.
-8. Initially when there is a new production version of the JetsetUI DApp the updated version number is recognised and a splash screen animation is played at z=9199
-9. While the splash screen animation is playing for 6.8 seconds, in the background the new version of the DApp is loaded along with it's assets and the the DApp is rendered below the splash screen.
-10. Once the splash screen animation has finished, the last frame is frozen and "Click/Tap to continue." is shown in the lower section (regardless of orientation if a mobile device) of the screen at z=9999 in white glowing text, clicking or tapping anywhere on the screen will cause the DApp to register the SoundProvider, and cause the splash screen to fade to opacity 0, thereby revealing the DApp below, and then the splash screen component is unmounted and removed from the DOM.
+3. The Hostinger server has a backend php script called https://jetsettoken.com/dapp/jetsetui/api/version_check.php, which is setup as part of a new version build and deloyment to the jetset server on Hostinger, it supplies a DApp call to it with the latest version and price data file version and priceData itself.
+4. When a user accesses a Jetset DApp the frontend logic calls the version_check.php and checks the versions against its own in localStorage, if it does not contain jetsetui_version then the DApp initialises the localStorage for the first time running the DApp.
+5. If it exists but does not match it then updates the localStorage keys with the new version data.
+6. If JetsetUI is being run for the very first time on user's device, then a splashscreen is displayed at z=9199 which plays a video intro.mp4
+7. src/config/initDApp.ts initializes the JetsetUI localStorage:  
+   localStorage.setItem('jetsetui.version': import.meta.env.VITE_APP_VERSION);  
+   localStorage.setItem('priceData_version', '20260624221'); // UTC Date Time string of the hostinger file https://jetsettoken.com/dapp/public/priceData.json  
+   // example contents of https://jetsettoken.com/dapp/public/priceData.json  
+   localStorage.setItem('priceData', JSON.stringify({"binancecoin":{"usd":624.01,"gbp":461.01,"eur":532.33},"jetset":{"usd":0.00010252,"gbp":7.572e-05,"eur":8.746e-05}});  
+   // jetsetui user settings  
+   localStorage.setItem('selFiat', 'usd'); // Kept lowercase for standard parsing.
+8. then preloads the asset files and start rendering of the DApp (z=100 )
+9. The video ends final frame, and a softly glowing white message "Press to continue...", a click/tap anywhere within the DApp's window will cause the DApp to register the SoundProvider, and cause the splashscreen to fade via css transition to opacity 0, which reveals the loaded DApp, the splashscreen module unloads itself.
+10. The vite entry file is https://jetsettoken.com/dapp/jetsetui/index.html which loads the main.tsx file in src/ within the div id="root", there is an additional div id modal-root for the DApp's modal windows e.g. SettingsModal window, ReceiveModal window that displays connected wallet address as a QRcode, BuyModal window displays a third party crypto vendor in an iframe Embr or Flooz.
 11. The Jetset environment DApp's have the same fixed AppHeader and AppFooter components:
+12. AppHeader shows the animated Jetset Logo in the center of the header and a Settings Icon cog in the top right of the header, AppHeader z=100 x=100 y=360 fixed to viewport.
+13. AppFooter z=100 x=140 y=360 fixed to viewport. AppFooter shows the animated Connect Wallet/Connecting/Disconnect button component that allows the user to connect a wallet of their choice to the DApp using ConnectKit. The button represents the current connection state of the DApp. Aligned along the bottom of the screen is an animated pulse of neon blue electricity that is flowing through a pipe that extends across the whole of the width of the DApp and has 16 frames of animation, this acts as a visual representation of the DApp's continued functionality (i.e. shows DApp has not frozen).
+14. The central main content area z=50 y=360 has no horizontal scroll, but can vertically scroll between the header and footer if neccessary and it's contents rely on a responsive design to display correctly for the device being used.
+15. The user can then interact with the DApp, via onClick handlers of which currently clickable elements include the "Connect Wallet" button (btnConnect.png), the Disconnect Wallet button (btnDisconnect.png), the Settings Icon (settings.svg), once a wallet is successfully connected there will also be a Buy button, Receive button and TipTap button.
+16. The "Connect Wallet" button is an animated button component which uses ConnectKit to allow the user to select a wallet to use out of the wallets thathave been installed.
+17. useConnection() updates → isConnected = true
+18. UI displays connected wallet information in a header section
+19. Wallet contents of BNB and Jetset balances are read and displayed as well as their value based on current fiat prices read from priceData using default fiat usd unless the user has changed the default fiat, or the user has specified a fiat to use with the currently connected wallet.
 
-- AppHeader shows the animated Jetset Logo in the center of the header and a Settings Icon cog in the top right of the header
-- AppFooter shows the animated Connect Wallet/Connecting/Disconnect button component that allows the user to connect a wallet of their choice to the DApp. The button represents the current connection state of the DApp. Aligned along the bottom of the screen is an animated pulse of neon blue electricity that is flowing through a pipe that extends across the whole of the width of the DApp and has 16 frames of animation, this acts as a visual representation of the DApp's continued functionality (i.e. shows DApp has not frozen).
+## Styling:
 
-12. The central main content area bewteen the header and footer is vertically scrollable if neccessary and it's contents are relies on responsive design.
-13. The user can then interact with the DApp, via onClick handlers of which currently clickable elements include the "Connect Wallet" button (btnConnect.png), the Disconnect Wallet button (btnDisconnect.png), the Settings Icon (settings.svg), once a wallet is successfully connected there will also be a Buy button, Receive button and TipTap button.
-14. The "Connect Wallet" button is an animated button component which uses the useConnection() hook from wagmi to check if the user is already connected, if not it will show a list of available wallet connectors, when the user clicks on a connector, the connect() function from wagmi is called, which stores the session and provider, and updates the useConnection() hook to isConnected = true, which causes the UI to switch to the <Connection /> component which shows the user's wallet address and balance, and allows them to disconnect which clears the session.
-15. WagmiProvider + QueryClientProvider initialize
-16. useConnection(), if not isConnected → show wallet list
-17. User clicks a connector.uid → connect()
-18. Wagmi stores session + provider
-19. localStorage used to store rdns, on window refresh if rdns exists in localStorage, useConnection() will automatically reconnect to the wallet and update isConnected = true, otherwise user must click a connector to connect.
-20. useConnection() updates → isConnected = true
-21. UI switches to <Connection />
-22. User can disconnect → session cleared
+### Main DApp areas:
+
+each has a 3 color gradient effect going from top right main blue, through diagonal darker blue to bottom left lighter blue.  
+each area has a brush metal effect texture either tiled or fitted to area with ever looks best.  
+AppHeader has drop shadow on lower edge.  
+AppFooter has drop shadow on upper edge.
+
+### Sections:
+
+These are within the main content area they have rounded corners with a colr gradient border around their edge from bright blue to dark purple.  
+Wallet header info  
+Wallet total assets area  
+Wallet assets listings  
+Wallet jetset token price graph from dextools
+
+Modals are at z=500 and have a drop shadow on left and lower edges.  
+It has grey bg with texture tiled to bg of its page.  
+The overlay blurs the visible dapp below it.  
+onClose handler called on clicking overlay, clicking close X in modal header top right, clicking modal close button in modal footer, Escape key caught.  
+All modals trap focus to modal window, block background dapp scrolling, and prevent propagation of events from bubbling oitside the modal itself.
+
+## Directory Structure:
+
+{Project}/  
+.env // API secrets  
+.copilot-instructions.md, AGENTS.md, CLAUDE.md, GEMINI.md // AI rules: Global, Project, Performance  
+index.html // Vite project entry point  
+tsconfig.json // typescript config  
+vite.config.ts // Vite+ config
+
+./src/ // source code files  
+main.tsx // Initial setup, render, and context wrappers  
+index.css // global styles  
+App.tsx // Main app control code  
+App.css // App styles  
+anim.css // animations
+
+./src/components/
+Component.tsx // React components - must starts with Uppercase character - UI elements , returns tsx  
+Component.module.css // styling for component of same name
+
+./src/hooks/
+useHook.ts // React hooks - camelCase normally starts with use, control app logic and state, returns values and/or functions
+handleEvent.ts // event handlers - camelCase normally starts with handle
+
+./src/config/
+abi.ts // contract ABI prototypes
+config.ts // wagmi, blockchain, and wallet setup
+consts.ts // project constants
+initDApp.ts // Initial DApp setup of locaStorage the first time the DApp is run on an user's device
+types.ts // types, data structures, objects, unions
+
+./src/util/
+utils.ts // general purpose utils
+
+```ts
+//_ src/config/const.ts
+/* public constants for Jetset and its DApps - JetsetUI, TipTap ...
+ */
+export const CONSTS = {
+	// Jetset BEP-20 token v1 contract address 2021-11-28 to 2022-09-26
+	JTS_V1_ADDR: '0xbf675ed044f2092a4f004aa5709bfa858641ce8b',
+
+	//Jetset BEP-20 token v2 contract address
+	JTS_ADDR: '0x405be90996e7f995a08c2fbd8d8822ef5b03466c',
+	JTS_NAME: 'Jetset',
+	JTS_SYMBOL: 'JTS',
+	JTS_DECIMALS: 18,
+
+	// BNB Smart Chain (BSC) ID: 56 || 0x38, Native token: BNB, Symbol BNB, Decimals 18
+	BSC_CHAIN_ID: 0x38,
+	BSC_RPC: 'https://bsc-dataseed1.binance.org/',
+	BSC_RPC2: 'https://rpc.ankr.com/bsc',
+	BSC_NAME: 'BNB Smart Chain',
+	BSC_SYMBOL: 'BNB',
+	BSC_DECIMALS: 18,
+	BSC_EXPLORER: 'https://bscscan.com/',
+
+	// DApp MetaInfo
+	DAPP_NAME: 'JetsetUI',
+	DAPP_DESCRIPTION: 'Jetset DApp Frontend',
+	DAPP_URL: 'https://jetsettoken.com/dapp/jetsetui/',
+	JETSETUI_SVG_URL: 'https://jetsettoken.com/dapp/public/Jetset.svg',
+	JETSETUI_ICO_URL: 'https://jetsettoken.com/dapp/jetsetui/public/favicon.ico',
+	DAPP_NETLIFY_URL: 'https://jetsetui.netlify.app/',
+	DAPP_RENDER_URL: 'https://jetsetui.onrender.com/',
+	JETSETUI_WC_ID: import.meta.env.VITE_JETSETUI_WC_ID,
+	cg_URL: 'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin,jetset&vs_currencies=usd,gbp,eur',
+} as const;
+```
+
+```ts
+// src/config/config.ts
+import { createConfig, http, createStorage, fallback } from 'wagmi';
+import { bsc } from 'wagmi/chains';
+import { injected, walletConnect, coinbaseWallet } from 'wagmi/connectors';
+import { CONSTS } from './consts.ts';
+
+declare module 'wagmi' {
+	interface Register {
+		config: typeof config;
+	}
+}
+
+const projectId = import.meta.env.VITE_JETSETUI_WC_ID;
+if (!projectId) {
+	throw new Error('WalletConnect Project ID missing — check cloud.reown.com');
+}
+
+// SSR/Netlify-safe storage (harmless guard for a Vite SPA, good habit)
+const storage = typeof window !== 'undefined' ? createStorage({ storage: window.localStorage }) : undefined;
+
+export const connectors = [
+	// EIP-6963 handles MetaMask, Brave, Trust, etc.
+	// injected() here covers wallets that only announce via window.ethereum
+	// (pre-EIP-6963 fallback). No shimDisconnect — removed in wagmi v2.
+	injected(),
+
+	walletConnect({
+		projectId,
+		metadata: {
+			name: CONSTS.DAPP_NAME,
+			description: CONSTS.DAPP_DESCRIPTION,
+			url: CONSTS.DAPP_URL,
+			icons: [CONSTS.JETSETUI_SVG_URL],
+		},
+		showQrModal: true,
+	}),
+	// metaMask() removed — multiInjectedProviderDiscovery: true means MetaMask self-announces via EIP-6963
+
+	coinbaseWallet({
+		appName: CONSTS.DAPP_NAME,
+		appLogoUrl: CONSTS.JETSETUI_SVG_URL,
+		// headless option maybe needed with ConnectKit
+	}),
+];
+
+export const config = createConfig({
+	storage,
+	multiInjectedProviderDiscovery: true,
+	chains: [bsc],
+	connectors,
+	transports: {
+		// fallback() tries each URL in order, moves to next on failure.
+		[bsc.id]: fallback([
+			http('https://rpc.ankr.com/bsc'),
+			http('https://bsc-dataseed1.binance.org'),
+			http('https://bsc-dataseed2.defibit.io'),
+			http('https://bsc-dataseed3.ninicoin.io'),
+			http(),
+		]),
+	},
+});
+```
+
+```ts
+export const jetsetABI = [
+	{
+		type: 'function',
+		name: 'name',
+		stateMutability: 'view',
+		inputs: [],
+		outputs: [{ name: 'name', type: 'string' }],
+	},
+	{
+		type: 'function',
+		name: 'symbol',
+		stateMutability: 'view',
+		inputs: [],
+		outputs: [{ name: 'symbol', type: 'string' }],
+	},
+	{
+		type: 'function',
+		name: 'decimals',
+		stateMutability: 'view',
+		inputs: [],
+		outputs: [{ name: 'decimals', type: 'uint8' }],
+	},
+	{
+		type: 'function',
+		name: 'balanceOf',
+		stateMutability: 'view',
+		inputs: [{ name: 'account', type: 'address' }],
+		outputs: [{ name: 'balance', type: 'uint256' }],
+	},
+	{
+		type: 'function',
+		name: 'transfer',
+		stateMutability: 'nonpayable',
+		inputs: [
+			{ name: 'to', type: 'address' },
+			{ name: 'amount', type: 'uint256' },
+		],
+		outputs: [{ type: 'bool' }],
+	},
+] as const;
+```
 
 <!---------------------------------------------------------------------------->
 <!--VITE PLUS START-->
@@ -411,7 +587,8 @@ Additional oxlint options:
 - [CLI Reference](https://oxc.rs/docs/guide/usage/linter/cli.html)
 - [Config File Reference](https://oxc.rs/docs/guide/usage/linter/config-file-reference.html)
 - [Complete Oxlint rule list and docs](https://oxc.rs/docs/guide/usage/linter/rules.html)
-      <!--VITE PLUS OXLINT MIGRATION END-->
+
+<!--VITE PLUS OXLINT MIGRATION END-->
 
 <!---------------------------------------------------------------------------->
 
@@ -480,7 +657,10 @@ Additional oxlint options:
 
 ### localStorage
 
-- Version keys (`jetsetui:userConfig:v1.0.0'`).
+- Keys ('jetsetui_version', 'priceData_version', 'priceData').
+- Version key 'jetsetui_version' is set at build time taken from the package.json Version value e.g. 0.0.3-alpha
+- Build process starts src/config/fetchPriceData.js script that fetchs:latest prices storing data to the 'priceData' key and storing the data in /priceData.json
+- The priceData.json file time is stored in the key 'priceData_version' as an ISO UTC Data Time string formatted in form YYYYMMDDHHmm
 - Minimise stored data.
 - Wrap reads/writes in try/catch.
 - Cache storage API calls in memory.
@@ -497,11 +677,11 @@ Additional oxlint options:
 ### Serverless Price Fetching
 
 - Minify JSON output.
-- Timestamp API output.
-- Client-side cache should handle price data:
-    - Fetch directly from 'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin,jetset&vs_currencies=usd,gbp,eur'
-    - If coingecko fetch error, fallback to fetching file from host web server https://jetsettoken.com/dapp/public/priceData.json
-    - If host file fetch fails fallback to file bundled with DApp ./priceData.json which is ./public/priceData.json on dev server.
+- Timestamp API output - using ISO UTC Date Time stamp formatted to YYYYMMDDHHmm
+- Client-side prices requested directly from coingecko api, data and time of api json output written to local priceData.json and to localStorage priceData* keys.
+- Fetch directly from 'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin,jetset&vs_currencies=usd,gbp,eur'
+- If coingecko fetch error, fallback to fetching file from hostinger web server https://jetsettoken.com/dapp/public/priceData.json
+- If host file fetch fails final fallback to JetsetUI localStorage that at its oldest will be the last build time of the DApp when the client-side ran the DApp for the first time.
 
 ### UI and UX
 
