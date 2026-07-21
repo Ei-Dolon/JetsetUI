@@ -84,8 +84,7 @@ footer {
 	border: 2px solid transparent;
 	background-clip: padding-box, border-box;
 	background-image:
-		linear-gradient(#181818, #181818),
-		linear-gradient(225deg, var(--gradient-start), var(--gradient-end));
+		linear-gradient(#181818, #181818), linear-gradient(225deg, var(--gradient-start), var(--gradient-end));
 }
 
 /* Footer Animated Layout Component Bar */
@@ -171,4 +170,28 @@ footer {
 	pointer-events: none;
 	bottom: 50%;
 	transform: translateY(25%);
+}
+
+.btnReceive {
+	width: 66px;
+	height: 72px;
+	background-image: url('./assets/btnReceive.png');
+	animation: animReceive 1.6s steps(4) infinite;
+}
+@keyframes animReceive {
+	to {
+		background-position: -264px 0;
+	}
+}
+
+.btnBuy {
+	width: 66px;
+	height: 72px;
+	background-image: url('./assets/btnBuy.png');
+	animation: animBuy 1.6s steps(4) infinite;
+}
+@keyframes animBuy {
+	to {
+		background-position: -264px 0;
+	}
 }

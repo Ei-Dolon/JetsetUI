@@ -1,13 +1,16 @@
 import React, { Suspense, lazy } from 'react';
 import { useConnection } from 'wagmi';
 import { ConnectKitButton } from 'connectkit';
+import { useModal } from './hooks/useModal';
+import { SettingsModal } from './components/SettingsModal';
+import { BuyModal } from './components/BuyModal';
+import { ReceiveModal } from './components/ReceiveModal';
 import './App.css'; // Main stylesheet
 // Sub-components (imported or defined here)
 const WalletLabel = lazy(() => import('./components/WalletLabel'));
 const PortfolioBalances = lazy(() => import('./components/PortfolioBalances'));
 // import JetsetGraph from './components/JetsetGraph';
 // import ConnectedButtons from './components/ConnectedButtons';
-import { initStorage } from './config/initStorage';
 
 interface HdrIconProps extends React.SVGProps<SVGSVGElement> {}
 
@@ -71,8 +74,11 @@ export const WalletButton = () => {
 };
 
 export default function App() {
-	initStorage();
-	const { status } = useConnection();
+	const { status, address } = useConnection();
+	// Instantiate clean isolated hooks for each workflow
+	const settingsModal = useModal();
+	const buyModal = useModal();
+	const receiveModal = useModal();
 
 	const renderMainContent = () => {
 		switch (status) {
@@ -101,13 +107,11 @@ export default function App() {
 
 			default:
 				return (
-					<>
-						<div className="metal-card">
-							<p style={{ textAlign: 'center' }}>
-								Please connect an installed wallet that holds BNB Smart Chain assets.
-							</p>
-						</div>
-					</>
+					<div className="metal-card">
+						<p style={{ textAlign: 'center' }}>
+							Please connect an installed wallet that holds BNB Smart Chain assets.
+						</p>
+					</div>
 				);
 		}
 	};
@@ -118,6 +122,7 @@ export default function App() {
 			<header className="metallic-surface">
 				<span className="header-logo" />
 				<button
+					onClick={settingsModal.open}
 					className="settings-icon"
 					aria-label="Settings">
 					<SettingsIcon />
@@ -126,6 +131,18 @@ export default function App() {
 
 			<main className="metallic-surface">
 				<section className="metal-card">{renderMainContent()}</section>
+				{!!address && (
+					<>
+						<button
+							onClick={buyModal.open}
+							className="btnBuy"
+						/>
+						<button
+							onClick={receiveModal.open}
+							className="btnReceive"
+						/>
+					</>
+				)}
 			</main>
 
 			<footer className="metallic-surface">
@@ -133,6 +150,19 @@ export default function App() {
 					<WalletButton />
 				</div>
 			</footer>
+			{/* Declarative Modals injected natively in parallel */}
+			<SettingsModal
+				isOpen={settingsModal.isOpen}
+				onClose={settingsModal.close}
+			/>
+			<BuyModal
+				isOpen={buyModal.isOpen}
+				onClose={buyModal.close}
+			/>
+			<ReceiveModal
+				isOpen={receiveModal.isOpen}
+				onClose={receiveModal.close}
+			/>
 		</>
 	);
 }

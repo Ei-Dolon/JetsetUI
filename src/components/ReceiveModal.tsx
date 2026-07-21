@@ -13,31 +13,42 @@
 
 import { useConnection } from 'wagmi';
 import QRCode from 'react-qr-code';
+import { Modal } from './Modal';
 import styles from './ReceiveModal.module.css';
 
-export function ReceiveModal() {
+interface ReceiveModalProps {
+	isOpen: boolean;
+	onClose: () => void;
+}
+
+export function ReceiveModal({ isOpen, onClose }: ReceiveModalProps) {
 	const { address } = useConnection();
 
 	if (!address) return <p className={styles['empty']}>No wallet connected.</p>;
 
 	return (
-		<div className={styles['root']}>
-			<div style={{ background: 'white', padding: '16px' }}>
-				<QRCode
-					value={address}
-					level="H"
-				/>
+		<Modal
+			isOpen={isOpen}
+			title="Receive Crypto"
+			onClose={onClose}>
+			<div className={styles['root']}>
+				<div style={{ background: 'white', padding: '16px' }}>
+					<QRCode
+						value={address}
+						level="H"
+					/>
+				</div>
+
+				<p className={styles['label']}>Your wallet address</p>
+				<p className={styles['address']}>{address}</p>
+
+				<button
+					className={styles['copy']}
+					onClick={() => void navigator.clipboard.writeText(address)}
+					type="button">
+					Copy address
+				</button>
 			</div>
-
-			<p className={styles['label']}>Your wallet address</p>
-			<p className={styles['address']}>{address}</p>
-
-			<button
-				className={styles['copy']}
-				onClick={() => void navigator.clipboard.writeText(address)}
-				type="button">
-				Copy address
-			</button>
-		</div>
+		</Modal>
 	);
 }

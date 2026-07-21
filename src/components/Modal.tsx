@@ -1,68 +1,41 @@
 //_ src/components/Modal.tsx
 /**
-<Modal
-  isOpen={...}
-  title={...}
-  optional onSave={...}
-  onClose={...}
-*/
-import { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react';
+ * @module Modal
+ * @description Generic modal wrapper: overlay + header (title, X) + body (children)
+ * + footer. Portals into #modal-root. X and overlay click always discard/close —
+ * they never save. Callers that need a Save action (e.g. SettingsModal) pass it
+ * via `footerActions`, rendered to the left of the standard Close button.
+ *
+ * @param {boolean} isOpen
+ * @param {string} title
+ * @param {() => void} onClose - discard/close handler (X, overlay, Escape, Close button)
+ * @param {React.ReactNode} [footerActions] - optional extra footer button(s), e.g. Save
+ */
+import { useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './Modal.module.css';
 
-// ── Context so content can call close(exitCode) without prop drilling ──
-interface ModalCtx {
-	close: (exitCode?: number) => void;
-}
-
-const ModalContext = createContext<ModalCtx | null>(null);
-
-export const useModalContext = () => {
-	const ctx = useContext(ModalContext);
-	if (!ctx) throw new Error('useModalContext must be used inside <Modal>');
-	return ctx;
-};
-
-// Types
 interface ModalProps {
 	isOpen: boolean;
 	title: string;
-	onSave?: (exitCode?: number) => void;
-	onClose: (exitCode?: number) => void;
+	onClose: () => void;
 	children: React.ReactNode;
+	footerActions?: React.ReactNode;
 }
 
-// Component
-export function Modal({ isOpen, title, onSave, onClose, children }: ModalProps) {
+export function Modal({ isOpen, title, onClose, children, footerActions }: ModalProps) {
 	const overlayRef = useRef<HTMLDivElement>(null);
 	const dialogRef = useRef<HTMLDivElement>(null);
-	const [animationState, setAnimationState] = useState<'open' | 'closed'>(() =>
-		isOpen ? 'open' : 'closed'
-	);
-	const [shouldRender, setShouldRender] = useState(isOpen);
-	const portalRoot = document.getElementById('portal-root');
 
-	// Stable close wrapper so effects don't re-register
-	const handleClose = useCallback((exitCode = 0) => onClose(exitCode), [onClose]);
-
-	useEffect(() => {
-		if (isOpen) {
-			setShouldRender(true);
-			setAnimationState('open');
-		} else if (shouldRender) {
-			setAnimationState('closed');
-		}
-	}, [isOpen, shouldRender]);
-
-	// ESC key
+	// Escape key
 	useEffect(() => {
 		if (!isOpen) return;
 		const onKey = (e: KeyboardEvent) => {
-			if (e.key === 'Escape') handleClose(0);
+			if (e.key === 'Escape') onClose();
 		};
 		window.addEventListener('keydown', onKey);
 		return () => window.removeEventListener('keydown', onKey);
-	}, [isOpen, handleClose]);
+	}, [isOpen, onClose]);
 
 	// Body scroll lock
 	useEffect(() => {
@@ -74,83 +47,63 @@ export function Modal({ isOpen, title, onSave, onClose, children }: ModalProps) 
 		};
 	}, [isOpen]);
 
-	// Focus trap: move focus into modal window on open
+	// Focus trap entry point
 	useEffect(() => {
 		if (isOpen) dialogRef.current?.focus();
 	}, [isOpen]);
 
-	// Click outside
 	const onOverlayClick = useCallback(
 		(e: React.MouseEvent<HTMLDivElement>) => {
-			if (e.target === overlayRef.current) handleClose(0);
+			if (e.target === e.currentTarget) onClose();
 		},
-		[handleClose]
-	);
-	const handleAnimationEnd = useCallback(
-		(event: React.AnimationEvent<HTMLDivElement>) => {
-			if (animationState === 'closed' && event.currentTarget.dataset['state'] === 'closed') {
-				setShouldRender(false);
-			}
-		},
-		[animationState, setShouldRender]
+		[onClose]
 	);
 
-	if (!shouldRender) return null;
-
+	// Return null early when closed — fully unmounts, triggers nested cleanup
 	if (!isOpen) return null;
 
-	return createPortal(
-		<ModalContext value={{ close: handleClose }}>
-			{/* Overlay */}
-			<div
-				className={styles['overlay']}
-				ref={overlayRef}
-				data-state={animationState}
-				onAnimationEnd={handleAnimationEnd}
-				onClick={onOverlayClick}
-			/>
+	const modalRoot = document.getElementById('modal-root');
+	if (!modalRoot) return null;
 
-			{/* Dialog */}
+	return createPortal(
+		<div
+			ref={overlayRef}
+			onClick={onOverlayClick}
+			className={styles['overlay']}>
 			<div
-				className={styles['dialog']}
 				ref={dialogRef}
 				role="dialog"
-				aria-modal
-				aria-label={title}
+				aria-modal="true"
+				aria-labelledby="modal-title"
 				tabIndex={-1}
-				data-state={animationState}
-				onAnimationEnd={handleAnimationEnd}>
-				{/* Header */}
+				className={styles['dialog']}
+				onClick={(e) => e.stopPropagation()}>
 				<div className={styles['header']}>
-					<span className={styles['title']}>{title}</span>
+					<span
+						id="modal-title"
+						className={styles['title']}>
+						{title}
+					</span>
 					<button
-						onClick={() => handleClose(0)}
+						onClick={onClose}
 						aria-label="Close"
 						className={styles['xBtn']}>
 						✕
 					</button>
 				</div>
 
-				{/* Content */}
 				<div className={styles['body']}>{children}</div>
 
-				{/* Footer */}
 				<div className={styles['footer']}>
+					{footerActions}
 					<button
-						onClick={() => handleClose(0)}
+						onClick={onClose}
 						className={styles['closeBtn']}>
-						Close {title}
+						Close
 					</button>
-					{onSave && (
-						<button
-							onClick={() => onSave(1)}
-							className={styles['saveBtn']}>
-							Save {title}
-						</button>
-					)}
 				</div>
 			</div>
-		</ModalContext>,
-		portalRoot || document.body
+		</div>,
+		modalRoot
 	);
 }

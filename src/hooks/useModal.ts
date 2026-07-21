@@ -1,26 +1,23 @@
 //_ src/hooks/useModal.ts
 /**
  * @module useModal
- * @description Minimal hook for controlling a single modal's open/closed state.
- * Returns open state plus stable open/close handlers.
+ * @description Minimal boolean-state hook for a single modal's open/closed state.
+ * No generic-manager indirection — the modal's own component (e.g. SettingsModal)
+ * owns its content and save logic; this hook only owns visibility.
  *
  * @example
- * const { isOpen, open, close } = useModal();
- * <button onClick={open}>Settings</button>
- * <SettingsModal isOpen={isOpen} onClose={close} />
+ * const settingsModal = useModal();
+ * <button onClick={settingsModal.open}>Settings</button>
+ * <SettingsModal isOpen={settingsModal.isOpen} onClose={settingsModal.close} />
  */
 
 import { useState, useCallback } from 'react';
 
-export interface UseModalReturn {
-	isOpen: boolean;
-	open: () => void;
-	close: () => void;
-}
+export function useModal() {
+	const [isOpen, setIsOpen] = useState(false);
 
-export function useModal(initialOpen = false): UseModalReturn {
-	const [isOpen, setIsOpen] = useState(initialOpen);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);
+
 	return { isOpen, open, close };
 }
