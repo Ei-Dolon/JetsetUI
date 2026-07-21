@@ -7,12 +7,7 @@ export default defineConfig({
 		// This injects the version key directly into Vite's environment compilation step
 		'import.meta.env.VITE_APP_VERSION': JSON.stringify(pkg.version),
 	},
-
-	staged: {
-		// Cleaner, native hook execution path for Vite+
-		'*': 'vp check --fix',
-	},
-
+	staged: { '*': 'vp check --fix' },
 	fmt: {
 		ignorePatterns: ['dist/**'],
 		printWidth: 120,
@@ -34,14 +29,12 @@ export default defineConfig({
 			{ files: ['**/*.md'], options: { proseWrap: 'preserve', embeddedLanguageFormatting: 'auto' } },
 		],
 	},
-
 	lint: {
 		ignorePatterns: ['dist/**'], // 'node_modules/**' is safely ignored by default
 		options: { typeAware: true, typeCheck: true },
 		rules: { 'no-console': ['error', { allow: ['error'] }], 'vite-plus/prefer-vite-plus-imports': 'error' },
 		jsPlugins: [{ name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' }],
 	},
-
 	plugins: [
 		{
 			name: 'html-transform',
@@ -53,10 +46,12 @@ export default defineConfig({
 			},
 		},
 	],
+	preview: { port: 8080 },
 
 	build: {
+		manifest: true,
 		sourcemap: false,
-		chunkSizeWarningLimit: 500,
+		chunkSizeWarningLimit: 900,
 		rolldownOptions: {
 			output: {
 				codeSplitting: {
@@ -73,5 +68,4 @@ export default defineConfig({
 			},
 		},
 	},
-	preview: { port: 8080 },
 });
