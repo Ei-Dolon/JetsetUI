@@ -18,7 +18,9 @@ import './index.css';
 import App from './App';
 import { initStorage } from './config/initStorage';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+	defaultOptions: { queries: { gcTime: 1000 * 60 * 10 } }, // 10 minutes
+});
 initStorage();
 
 createRoot(document.getElementById('root')!).render(

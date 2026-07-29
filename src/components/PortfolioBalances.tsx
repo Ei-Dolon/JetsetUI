@@ -12,38 +12,18 @@ interface PriceData {
 	binancecoin?: Record<string, number>;
 	jetset?: Record<string, number>;
 }
+export type FiatKey = 'usd' | 'gbp' | 'eur';
 
-interface AssetRowProps {
-	icon?: React.ReactNode;
-	name: string;
-	symbol: string;
-	balance: string;
-	fiatValue: string;
-	fiatSymbol?: string;
-}
+// Define the lookup dictionary
+export const FIAT_SYM: Record<FiatKey, string> = { usd: '$', gbp: '£', eur: '€' };
 
-function AssetRow({ icon, name, symbol, balance, fiatValue, fiatSymbol = '$ ' }: AssetRowProps) {
-	return (
-		<div className="asset-row">
-			{/* Row 1: Icon + Name / Balance + Symbol */}
-			<div className="asset-row-header">
-				<div className="asset-info">
-					{icon}
-					<span className="asset-name">{name}</span>
-				</div>
-
-				<div className="asset-balance">
-					{balance} <span className="asset-symbol">{symbol}</span>
-				</div>
-			</div>
-
-			{/* Row 2: Fiat value */}
-			<div className="asset-fiat">
-				{fiatSymbol}
-				{fiatValue}
-			</div>
-		</div>
-	);
+function readStoredFiat(): FiatKey {
+	try {
+		const stored = localStorage.getItem('selFiat');
+		return stored === 'usd' || stored === 'gbp' || stored === 'eur' ? stored : 'usd';
+	} catch {
+		return 'usd';
+	}
 }
 
 export default function PortfolioBalances() {
@@ -51,13 +31,10 @@ export default function PortfolioBalances() {
 
 	const [bnbPrice, setBnbPrice] = useState<number>(0);
 	const [jetsetPrice, setJetsetPrice] = useState<number>(0);
-	const [selFiat] = useState<string>('usd');
+	const [selFiat, setSelFiat] = useState<FiatKey>('usd');
 
 	// Native BNB balance
-	const { data: bnbBalanceData, isLoading: isBnbLoading } = useBalance({
-		address,
-		chainId: CONSTS.BSC_CHAIN_ID,
-	});
+	const { data: bnbBalanceData, isLoading: isBnbLoading } = useBalance({ address, chainId: CONSTS.BSC_CHAIN_ID });
 
 	// JTS token balance
 	const {
@@ -71,6 +48,18 @@ export default function PortfolioBalances() {
 		args: address ? [address] : undefined,
 		query: { enabled: !!address && isConnected },
 	});
+
+	useEffect(() => {
+		const updateFiat = () => setSelFiat(readStoredFiat());
+		updateFiat();
+
+		const handleStorage = (event: StorageEvent) => {
+			if (event.key === 'selFiat') updateFiat();
+		};
+
+		window.addEventListener('storage', handleStorage);
+		return () => window.removeEventListener('storage', handleStorage);
+	}, []);
 
 	// Load prices from localStorage
 	useEffect(() => {
@@ -125,7 +114,7 @@ export default function PortfolioBalances() {
 	}, [bnbFiatValue, jetsetFiatValue]);
 
 	if (!isConnected || !address) {
-		return <div className="portfolio-disconnected">Connect your wallet to view portfolio</div>;
+		return <div className="portfolio-disconnected">Please reconnect your wallet.</div>;
 	}
 
 	if (isBnbLoading || isJetsetPending) {
@@ -140,36 +129,56 @@ export default function PortfolioBalances() {
 		<div className="metal-card">
 			{/* Total row */}
 			<div className="portfolio-total">
-				<h2>Total Portfolio Value: $ {totalFiat}</h2>
+				<h2>
+					Total Portfolio Value: {FIAT_SYM[selFiat]} {totalFiat}
+				</h2>
 				<h3></h3>
 			</div>
-			<AssetRow
-				name="BNB"
-				symbol="BNB"
-				balance={bnbBalanceFormatted}
-				fiatValue={bnbFiatValue}
-				icon={
-					<img
-						src={BnbIcon}
-						alt="BNB"
-						className="asset-icon"
-					/>
-				}
-			/>
+			<div className="asset-row">
+				{/* Row 1: Icon + Name / Balance + Symbol */}
+				<div className="asset-row-header">
+					<div className="asset-info">
+						<img
+							src={BnbIcon}
+							alt="BNB"
+							className="asset-icon"
+						/>
+						<span className="asset-name"> BNB </span>
+					</div>
 
-			<AssetRow
-				name="Jetset"
-				symbol="JTS"
-				balance={jetsetBalanceFormatted}
-				fiatValue={jetsetFiatValue}
-				icon={
-					<img
-						src={JtsIcon}
-						alt="Jetset"
-						className="asset-icon"
-					/>
-				}
-			/>
+					<div className="asset-balance">
+						{bnbBalanceFormatted} <span className="asset-symbol">BNB</span>
+					</div>
+				</div>
+
+				{/* Row 2: Fiat value */}
+				<div className="asset-fiat">
+					{bnbFiatValue} {selFiat.toUpperCase()}
+				</div>
+			</div>
+
+			<div className="asset-row">
+				{/* Row 1: Icon + Name / Balance + Symbol */}
+				<div className="asset-row-header">
+					<div className="asset-info">
+						<img
+							src={JtsIcon}
+							alt="Jetset"
+							className="asset-icon"
+						/>
+						<span className="asset-name"> JETSET </span>
+					</div>
+
+					<div className="asset-balance">
+						{jetsetBalanceFormatted} <span className="asset-symbol">JTS</span>
+					</div>
+				</div>
+
+				{/* Row 2: Fiat value */}
+				<div className="asset-fiat">
+					{jetsetFiatValue} {selFiat.toUpperCase()}
+				</div>
+			</div>
 		</div>
 	);
 }

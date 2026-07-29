@@ -37,7 +37,9 @@ export interface TokenData {
 export type CoinGeckoId = 'binancecoin' | 'jetset';
 
 // --- Price Data
-
+/* Example priceData.json file:
+{"binancecoin":{"usd":624.01,"gbp":461.01,"eur":532.33},"jetset":{"usd":0.00010252,"gbp":7.572e-05,"eur":8.746e-05}}
+*/
 /** CoinGecko simple-price payload for BNB and JTS */
 export interface PriceData {
 	binancecoin: { usd: number; gbp: number; eur: number };
@@ -79,24 +81,12 @@ export type FiatCurrency = 'USD' | 'GBP' | 'EUR';
 export type FiatKey = 'usd' | 'gbp' | 'eur';
 
 /** Maps FiatCurrency to its unicode symbol */
-export const FIAT_SYMBOL: Readonly<Record<FiatCurrency, string>> = {
-	USD: '$',
-	GBP: '£',
-	EUR: '€',
-} as const;
+export const FIAT_SYMBOL: Readonly<Record<FiatCurrency, string>> = { USD: '$', GBP: '£', EUR: '€' } as const;
 
 /** Maps FiatCurrency to its PriceData key */
-export const FIAT_KEY: Readonly<Record<FiatCurrency, FiatKey>> = {
-	USD: 'usd',
-	GBP: 'gbp',
-	EUR: 'eur',
-} as const;
+export const FIAT_KEY: Readonly<Record<FiatCurrency, FiatKey>> = { USD: 'usd', GBP: 'gbp', EUR: 'eur' } as const;
 
-export const LOCALE_BY_FIAT: Record<FiatKey, string> = {
-	usd: 'en-US',
-	gbp: 'en-GB',
-	eur: 'de-DE',
-} as const;
+export const LOCALE_BY_FIAT: Record<FiatKey, string> = { usd: 'en-US', gbp: 'en-GB', eur: 'de-DE' } as const;
 
 /** Human-readable display metadata for each supported fiat. */
 export const FIAT_META = {

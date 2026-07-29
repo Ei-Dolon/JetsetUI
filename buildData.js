@@ -4,17 +4,11 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(fs.readFileSync(path.resolve(__dirname, './package.json'), 'utf8'));
-const API_URL =
-	'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin,jetset&vs_currencies=usd,gbp,eur';
+const API_URL = 'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin,jetset&vs_currencies=usd,gbp,eur';
 const OUTPUT_PATH = path.resolve(__dirname, './src/assets/priceData.json');
 const META_PATH = path.resolve(__dirname, './src/assets/priceMeta.json');
 const PUBLIC_OUTPUT_PATH = path.resolve(__dirname, './public/priceData.json');
 const PUBLIC_META_PATH = path.resolve(__dirname, './public/priceMeta.json');
-
-// produce a new UTC timestamp in a 12 character format YYYYMMDDHHmm
-function getUtcTimestampString() {
-	return new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '');
-}
 
 function updateEnvFile() {
 	let envContent = '';
@@ -42,7 +36,7 @@ async function getPriceData() {
 		}
 
 		const data = await response.json();
-		const metaPayload = { priceData_version: getUtcTimestampString() };
+		const metaPayload = { priceData_version: new Date().toISOString() };
 
 		// Write out the raw structural output to both the app source assets and the public fallback location
 		fs.writeFileSync(OUTPUT_PATH, JSON.stringify(data, null, 0), 'utf-8');

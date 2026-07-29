@@ -36,7 +36,7 @@ html[data-theme='light'] {
 	/* Typography - system font stack */
 	/* system-ui = Segoe UI (Windows), Roboto (Android), Ubuntu (Linux), San Francisco (macOS/iOS) */
 	--font-sans: system-ui, sans-serif;
-	--font-mono: ui-monospace;
+	--font-mono: ui-monospace, monospace;
 
 	/* Modern text rendering */
 	-webkit-font-smoothing: antialiased;
@@ -47,16 +47,23 @@ html[data-theme='light'] {
 	--color-bg: #1c1c1c;
 
 	/* Metallic Gradient Colors */
-	--metal-purple: #3a1c6a; /* Dark metallic purple */
+	--metal-blue-bg: #13145f;
 	--metal-blue-mid: #1837a5; /* Core dark blue */
-	--metal-blue-elec: #00d2ff; /* Electric blue accent */
+	--metal-bue-lo: #0a73af;
+	--metal-blue-hi: #00d2ff; /* Electric blue accent */
 
+	--metal-purple: #3a1c6a; /* Dark metallic purple */
 	/* Card Variable Border Gradients */
-	--gradient-start: #8e2de2; /* Deep Purple */
-	--gradient-end: #4a00e0; /* Electric Blue */
+	--gradient-end: #4a00e0;
+	--gradient-start: #8b4acd;
 
+	/* Establish fallback heights for desktop and mobile navigation */
+	--system-nav-height: max(7dvh, env(safe-area-inset-bottom));
 	--header-height: 140px;
 	--footer-height: 100px;
+
+	/* Calculate the actual remaining height available for your dApp content */
+	--app-height: calc(100dvh - var(--system-nav-height));
 }
 
 /* Better defaults for common elements */
@@ -70,51 +77,16 @@ html[data-theme='light'] {
 
 html,
 body {
-	height: 100%;
-	width: 100%;
-	font-size: clamp(12px, 1.5vw, 20px);
-	overflow: hidden;
-	color: var(--color-text);
-	background-color: var(--color-bg);
 	font-family: system-ui, sans-serif;
+	font-size: clamp(12px, 1.5vw, 20px);
+	background-color: var(--color-bg);
+	color: var(--color-text);
 	text-rendering: optimizeLegibility;
 	font-synthesis: none;
 }
 
-#root {
-	/* Complete Grid-Driven Layout Structure */
-	height: 100vh;
-	display: grid;
-	grid-template-areas:
-		'header'
-		'main'
-		'footer';
-	grid-template-columns: 1fr;
-	grid-template-rows: var(--header-height) 1fr var(--footer-height);
-}
-
-.metallic-surface {
-	position: relative;
-	overflow: hidden;
-	background:
-		radial-gradient(ellipse at top right, #121289, transparent 40%),
-		radial-gradient(ellipse at bottom left, var(--metal-blue-elec), transparent 50%),
-		linear-gradient(225deg, var(--metal-purple), var(--metal-blue-mid));
-}
-
-/* Noise overlay technique utilizing the asset texture */
-.metallic-surface::before {
-	content: '';
-	position: absolute;
-	inset: 0;
-	background: url('./assets/texture2.png') repeat;
-	opacity: 0.4;
-	pointer-events: none;
-	z-index: 51;
-}
-
-/* Ensure children sit nicely above the pseudo-element texture */
-.metallic-surface > * {
-	position: relative;
-	z-index: 51;
+/* Create the strict fullscreen bounding container */
+.dapp-container {
+	display: flex;
+	flex-direction: column;
 }

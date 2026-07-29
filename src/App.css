@@ -1,10 +1,10 @@
 /* src/App.css */
 
 header {
-	position: fixed;
+	flex-shrink: 0;
+	background-color: var(--color-bg);
 	top: 0;
 	left: 0;
-	right: 0;
 	height: var(--header-height);
 	display: flex;
 	z-index: 100;
@@ -13,23 +13,46 @@ header {
 	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.65);
 }
 
-main {
-	position: fixed;
+/* Container holding the scrollable main content */
+.main-content {
+	background-color: var(--metal-blue-bg);
+
+	/* Global scroll mask -  wraps main content causing the transparency to change from 0% to 100% blending perfectly with the drop shadow of the header and footer */
+	/* Perfect Dual-End Masking Math */
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		transparent 0px,
+		transparent 8px,
+		/* Keeps content hidden right under the header edge */ rgba(0, 0, 0, 1) 32px
+			/* Gradually brings content to full visibility by 32px */
+	);
+	mask-image: linear-gradient(to bottom, transparent 0px, transparent 8px, rgba(0, 0, 0, 1) 32px);
+
+	position: sticky;
+	flex-grow: 1;
+	overflow-y: visible; /* Scrollbar lives ONLY right here */
+
+	top: var(--header-height);
+
 	left: 0;
 	right: 0;
+	height: calc(var(--app-height) - var(--header-height) - var(--footer-height));
 	z-index: 50;
-	min-height: 0;
 	/* Scrollable Behavior Configuration */
 	overflow-x: hidden;
 	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
-	box-sizing: border-box;
-	background-color: var(--metal-blue-mid);
+	align-items: center;
+	justify-content: flex-start;
+
+	-webkit-overflow-scrolling: touch;
 }
 
 footer {
 	position: fixed;
+	flex-shrink: 0;
+	background-color: var(--color-bg);
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -46,31 +69,34 @@ footer {
    4. CONTENT AND INNER COMPONENT STYLES
    ========================================================================== */
 
-/* Header Content Elements */
-.header-logo {
-	width: 153px;
-	height: 132px;
-	object-fit: contain;
-	background: url('./assets/JetsetLogo.png') 0 0 no-repeat;
-	animation: spriteLogo 0.8s steps(2) infinite;
-}
-@keyframes spriteLogo {
-	to {
-		background-position: -306px 0;
-	}
+/* A radial gradient composed of 3 colours with semi-transparent texture overlay */
+.metallic-surface {
+	position: relative;
+	overflow: hidden;
+	background:
+		radial-gradient(ellipse at top right, var(--metal-blue-bg), transparent 40%),
+		radial-gradient(ellipse at bottom left, var(--metal-blue-hi), transparent 50%),
+		linear-gradient(225deg, var(--metal-purple), var(--metal-blue-mid));
 }
 
-.settings-icon {
-	width: 48px;
-	height: 48px;
+/* Noise overlay technique utilizing the asset texture */
+.metallic-surface::before {
+	content: '';
 	position: absolute;
-	right: 40px;
-	top: 50%;
-	transform: translateY(-50%);
-	cursor: pointer;
+	inset: 0;
+	background: url('./assets/texture2.png') repeat;
+	opacity: 0.4;
+	pointer-events: none;
+	z-index: 51;
 }
 
-/* Curved Corner Gradient Border Cards inside Main Content Container */
+/* Ensure children sit nicely above the pseudo-element texture */
+.metallic-surface > * {
+	position: relative;
+	z-index: 51;
+}
+
+/* Content division using a border composed of a two color linear gradient effect */
 .metal-card {
 	position: relative;
 	border-radius: 16px;
@@ -87,7 +113,32 @@ footer {
 		linear-gradient(#181818, #181818), linear-gradient(225deg, var(--gradient-start), var(--gradient-end));
 }
 
-/* Footer Animated Layout Component Bar */
+/* Jetset Header Logo */
+.header-logo {
+	width: 153px;
+	height: 132px;
+	object-fit: contain;
+	background: url('./assets/JetsetLogo.png') 0 0 no-repeat;
+	animation: spriteLogo 0.8s steps(2) infinite;
+}
+@keyframes spriteLogo {
+	to {
+		background-position: -306px 0;
+	}
+}
+
+/* header settings cog icon */
+.settings-icon {
+	width: 48px;
+	height: 48px;
+	position: absolute;
+	right: 40px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+/* Designed footer section containing an animated electrical pulse representing DApp activity */
 .animated-bar {
 	width: 360px;
 	height: 60px;
@@ -175,7 +226,9 @@ footer {
 .btnReceive {
 	width: 66px;
 	height: 72px;
-	background-image: url('./assets/btnReceive.png');
+	border: none;
+	background-color: transparent;
+	background: url('./assets/btnReceive.png');
 	animation: animReceive 1.6s steps(4) infinite;
 }
 @keyframes animReceive {
@@ -187,6 +240,9 @@ footer {
 .btnBuy {
 	width: 66px;
 	height: 72px;
+	border: none;
+	justify-content: space-between;
+	background-color: transparent;
 	background-image: url('./assets/btnBuy.png');
 	animation: animBuy 1.6s steps(4) infinite;
 }
@@ -194,4 +250,10 @@ footer {
 	to {
 		background-position: -264px 0;
 	}
+}
+
+.btnBuy,
+.btnReceive {
+	display: block;
+	margin: 0 auto 16px;
 }

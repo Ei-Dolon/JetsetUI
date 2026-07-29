@@ -118,51 +118,59 @@ export default function App() {
 
 	return (
 		<>
-			{/* display universal frontend header and footer */}
-			<header className="metallic-surface">
-				<span className="header-logo" />
-				<button
-					onClick={settingsModal.open}
-					className="settings-icon"
-					aria-label="Settings">
-					<SettingsIcon />
-				</button>
-			</header>
+			<div className="dapp-container">
+				{/* display universal frontend header and footer */}
+				<header className="metallic-surface">
+					<span className="header-logo" />
+					<button
+						onClick={settingsModal.open}
+						className="settings-icon"
+						aria-label="Settings">
+						<SettingsIcon />
+					</button>
+				</header>
 
-			<main className="metallic-surface">
-				<section className="metal-card">{renderMainContent()}</section>
-				{!!address && (
-					<>
-						<button
-							onClick={buyModal.open}
-							className="btnBuy"
-						/>
-						<button
-							onClick={receiveModal.open}
-							className="btnReceive"
-						/>
-					</>
-				)}
-			</main>
+				<main className="main-content">
+					<div className="metallic-surface">
+						<section className="metal-card">{renderMainContent()}</section>
+						{!!address && (
+							<>
+								<button
+									onClick={buyModal.open}
+									className="btnBuy">
+									<div className="btnBuy"></div>
+								</button>
+								<br />
+								<button
+									onClick={receiveModal.open}
+									className="btnReceive">
+									<div className="btnReceive"></div>
+								</button>
+								<br />
+							</>
+						)}
+					</div>
+				</main>
 
-			<footer className="metallic-surface">
-				<div className="animated-bar">
-					<WalletButton />
-				</div>
-			</footer>
-			{/* Declarative Modals injected natively in parallel */}
-			<SettingsModal
-				isOpen={settingsModal.isOpen}
-				onClose={settingsModal.close}
-			/>
-			<BuyModal
-				isOpen={buyModal.isOpen}
-				onClose={buyModal.close}
-			/>
-			<ReceiveModal
-				isOpen={receiveModal.isOpen}
-				onClose={receiveModal.close}
-			/>
+				<footer className="metallic-surface">
+					<div className="animated-bar">
+						<WalletButton />
+					</div>
+				</footer>
+				{/* Declarative Modals injected natively in parallel */}
+				<SettingsModal
+					isOpen={settingsModal.isOpen}
+					onClose={settingsModal.close}
+				/>
+				<BuyModal
+					isOpen={buyModal.isOpen}
+					onClose={buyModal.close}
+				/>
+				<ReceiveModal
+					isOpen={receiveModal.isOpen}
+					onClose={receiveModal.close}
+				/>
+			</div>
 		</>
 	);
 }
