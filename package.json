@@ -1,6 +1,6 @@
 {
 	"name": "jetsetui",
-	"version": "0.0.44-alpha",
+	"version": "0.0.45-alpha",
 	"private": true,
 	"description": "Jetset DApp Frontend",
 	"homepage": "https://jetsettoken.com/dapp/jetsetui",
@@ -15,29 +15,30 @@
 		"prepare": "vp config"
 	},
 	"dependencies": {
-		"@tanstack/react-query": "^5.101.3",
+		"@tanstack/react-query": "^5.101.4",
 		"connectkit": "^1.9.2",
-		"react": "^19.2.7",
-		"react-dom": "^19.2.7",
+		"react": "^19.2.8",
+		"react-dom": "^19.2.8",
 		"react-qr-code": "^2.2.0",
-		"viem": "~2.55.4",
-		"wagmi": "~3.7.3"
+		"viem": "^2.55.10",
+		"wagmi": "^3.7.4"
 	},
 	"devDependencies": {
-		"@types/node": "^26.1.1",
+		"@types/node": "^26.1.2",
 		"@types/react": "^19.2.17",
 		"@types/react-dom": "^19.2.3",
-		"globals": "^17.7.0",
-		"typescript": "~7.0.2",
+		"globals": "^17.8.0",
+		"pnpm": "^11.17.0",
+		"typescript": "^7.0.2",
 		"vite": "npm:@voidzero-dev/vite-plus-core@0.2.4",
-		"vite-plus": "^0.2.5"
+		"vite-plus": "^0.2.6"
 	},
 	"devEngines": {
 		"packageManager": {
 			"name": "pnpm",
-			"version": "11.12.0",
+			"version": "11.17.0",
 			"onFail": "download"
 		}
 	},
-	"packageManager": "pnpm@11.12.0"
+	"packageManager": "pnpm@11.17.0"
 }
