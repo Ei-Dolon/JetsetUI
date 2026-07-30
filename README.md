@@ -5,56 +5,55 @@ a = alpha, b = beta, r=release
 **Toolchain:** Vite+ [Vite+ ^0.2.6](https://viteplus.dev/)  
 Dev environment: pnpm v11+, Typescript v7.0.2, Vite v8+, Rolldown, Vitest, tsdown, Oxlint, Oxfmt, and Vite Task.
 
-**Code Versioning:** git, GitHub CLI, Examdiff Pro Master v15\
+**Code Versioning:** git, GitHub CLI, Examdiff Pro Master v15/
 
 ### Environment:
 
-Microsoft Windows 11 Pro - dev software\
-Ubuntu v26 (WSL2) - project files, dev environment\
-Node.js v24 LTS - required to run buildData.js script\
+Microsoft Windows 11 Pro - dev software/
+Ubuntu v26 (WSL2) - project files, dev environment/
+Node.js v24 LTS - required to run buildData.js script/
 
-**IDE:** VS Code\
-**Extensions:**\
-VoidZero.vite-plus-extension-pack\
-oxc.oxc-vscode\
-vitest.explorer\  
-ms-vscode-remote.vscode-remote-extensionpack\
+**IDE:** VS Code/
+**Extensions:**/
+VoidZero.vite-plus-extension-pack/
+oxc.oxc-vscode/
+vitest.explorer/  
+ms-vscode-remote.vscode-remote-extensionpack/
 
-DApp version number has a single source of truth, all other instances/applications of version are derived from this source:\
-"version": {string},\
-within /package.json\
+DApp version number has a single source of truth, all other instances/applications of version are derived from this source:  
+"version": {string},  
+within /package.json  
 
 ### [Library Version](Website)
-
-Following libraries are dependencies within project, and represent the lowest version number to use, websites include documentation.\
+Following libraries are dependencies within project, and represent the lowest version number to use, websites include documentation.  
 [Typescript v7.0.2](https://typescriptlang.org/)  
 [Vite v8.x](https://vite.dev/)  
 [React v19.2.8](https://react.dev/)  
 [wagmi v3.7.4](https://wagmi.sh/)  
 [viem v2.55.x](https://viem.sh/)  
 [@tanstack/react-query v5.101.x](https://tanstack.com/query/latest/)  
-[ConnectKit v1.9.2](https://family.co/docs/connectkit)
+[ConnectKit v1.9.2](https://family.co/docs/connectkit)  
 
 **Wallets Supported:**  
 Coinbase Wallet  
 WalletConnect (Wallets installed on mobile devices)  
-EIP-6963 Injected wallets - MetaMask, Brave, Trust, Ledger, etc installed in web browser.
+EIP-6963 Injected wallets - MetaMask, Brave, Trust, Ledger, etc installed in web browser.  
 
-The DApp handles most wallets installed on a mobile (Android or iOS) or through a web browser (via desktop/laptop using windows/linux/Mac or on a mobile :)
+The DApp handles most wallets installed on a mobile (Android or iOS) or through a web browser (via desktop/laptop using windows/linux/Mac or on a mobile :)  
 
 ### User Flow Document:
 
-0.  The vite entry file is https://jetsettoken.com/dapp/jetsetui/index.html which loads the main.tsx file in src/ within the div id="root", there is an additional div id modal-root for the DApp's modal windows e.g. SettingsModal window, ReceiveModal window that displays connected wallet address as a QRcode, BuyModal window displays a third party crypto vendor in an iframe Embr or Flooz.\
+0.  The vite entry file is https://jetsettoken.com/dapp/jetsetui/index.html which loads the main.tsx file in src/ within the div id="root", there is an additional div id modal-root for the DApp's modal windows e.g. SettingsModal window, ReceiveModal window that displays connected wallet address as a QRcode, BuyModal window displays a third party crypto vendor in an iframe Embr or Flooz.  
 
-1.  The Jetset environment DApp's have the same fixed DApp Header and Footer components.\
+1.  The Jetset environment DApp's have the same fixed DApp Header and Footer components./
 
-2.  Header shows the animated Jetset Logo in the center of the header and a Settings Icon cog in the top right of the header, AppHeader z=100 x=360 y=140 fixed to top of viewport.\
+2.  Header shows the animated Jetset Logo in the center of the header and a Settings Icon cog in the top right of the header, AppHeader z=100 x=360 y=140 fixed to top of viewport./
 
-3.  Footer z=100 x=360 y=100 fixed to bottom of viewport. Footer displays the main user interaction interface as an animated connect wallet button.\
+3.  Footer z=100 x=360 y=100 fixed to bottom of viewport. Footer displays the main user interaction interface as an animated connect wallet button./
 
-- The button provides 3 visual states: Connect Wallet/Connecting/Disconnect\
-- The connection modal is handled by ConnectKit v1.9.2\
-- Aligned along the bottom of the screen is an animated pulse of neon blue electricity that is flowing through a pipe that extends across 360px of the DApp and has 16 frames of animation, it is a visual representation of the DApp's continued functionality (i.e. shows DApp has not frozen).\
+- The button provides 3 visual states: Connect Wallet/Connecting/Disconnect  
+- The connection modal is handled by ConnectKit v1.9.2  
+- Aligned along the bottom of the screen is an animated pulse of neon blue electricity that is flowing through a pipe that extends across 360px of the DApp and has 16 frames of animation, it is a visual representation of the DApp's continued functionality (i.e. shows DApp has not frozen)./
 
 4.  The central main content area z=50 y=360 has no horizontal scroll, but can vertically scroll between the header and footer if neccessary and it's contents rely on a responsive design to display correctly for the device being used.\
 
