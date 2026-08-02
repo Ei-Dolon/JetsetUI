@@ -21,7 +21,7 @@
 		"react-dom": "^19.2.8",
 		"react-qr-code": "^2.2.0",
 		"viem": "^2.55.10",
-		"wagmi": "^3.7.4"
+		"wagmi": "^3.7.5"
 	},
 	"devDependencies": {
 		"@types/node": "^26.1.2",
