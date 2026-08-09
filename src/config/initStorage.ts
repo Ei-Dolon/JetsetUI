@@ -4,9 +4,10 @@ import priceMeta from '../assets/priceMeta.json';
 
 export function initStorage() {
 	const appVersion = import.meta.env.VITE_APP_VERSION;
+	const storedVersion = localStorage.getItem('jetsetui_version');
 
 	// Check if device has initialized before
-	if (localStorage.getItem(appVersion)) return;
+	if (storedVersion === appVersion) return;
 
 	// Set device-level defaults
 	localStorage.setItem('jetsetui_version', appVersion);

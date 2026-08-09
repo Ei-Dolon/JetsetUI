@@ -17,21 +17,15 @@ export type FiatKey = 'usd' | 'gbp' | 'eur';
 // Define the lookup dictionary
 export const FIAT_SYM: Record<FiatKey, string> = { usd: '$', gbp: '£', eur: '€' };
 
-function readStoredFiat(): FiatKey {
-	try {
-		const stored = localStorage.getItem('selFiat');
-		return stored === 'usd' || stored === 'gbp' || stored === 'eur' ? stored : 'usd';
-	} catch {
-		return 'usd';
-	}
+interface PortfolioBalancesProps {
+	selFiat: FiatKey;
 }
 
-export default function PortfolioBalances() {
+export default function PortfolioBalances({ selFiat }: PortfolioBalancesProps) {
 	const { address, isConnected } = useConnection();
 
 	const [bnbPrice, setBnbPrice] = useState<number>(0);
 	const [jetsetPrice, setJetsetPrice] = useState<number>(0);
-	const [selFiat, setSelFiat] = useState<FiatKey>('usd');
 
 	// Native BNB balance
 	const { data: bnbBalanceData, isLoading: isBnbLoading } = useBalance({ address, chainId: CONSTS.BSC_CHAIN_ID });
@@ -48,18 +42,6 @@ export default function PortfolioBalances() {
 		args: address ? [address] : undefined,
 		query: { enabled: !!address && isConnected },
 	});
-
-	useEffect(() => {
-		const updateFiat = () => setSelFiat(readStoredFiat());
-		updateFiat();
-
-		const handleStorage = (event: StorageEvent) => {
-			if (event.key === 'selFiat') updateFiat();
-		};
-
-		window.addEventListener('storage', handleStorage);
-		return () => window.removeEventListener('storage', handleStorage);
-	}, []);
 
 	// Load prices from localStorage
 	useEffect(() => {

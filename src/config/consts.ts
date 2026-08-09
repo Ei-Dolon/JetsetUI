@@ -24,10 +24,12 @@ export const CONSTS = {
 	DAPP_NAME: 'JetsetUI',
 	DAPP_DESCRIPTION: 'Jetset DApp Frontend',
 	DAPP_URL: 'https://jetsettoken.com/dapp/jetsetui/',
-	JETSETUI_SVG_URL: 'https://jetsettoken.com/dapp/public/Jetset.svg',
+	JETSETUI_SVG_URL: 'https://jetsettoken.com/dapp/public/jetset.svg',
 	JETSETUI_ICO_URL: 'https://jetsettoken.com/dapp/jetsetui/public/favicon.ico',
 	DAPP_NETLIFY_URL: 'https://jetsetui.netlify.app/',
 	DAPP_RENDER_URL: 'https://jetsetui.onrender.com/',
 	JETSETUI_WC_ID: import.meta.env.VITE_JETSETUI_WC_ID,
+	cg_PRICEDATA_URL: 'https://jetsettoken.com/dapp/public/priceData.json',
+	cg_PRICEMETA_URL: 'https://jetsettoken.com/dapp/public/priceMeta.json',
 	cg_URL: 'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin,jetset&vs_currencies=usd,gbp,eur',
 } as const;

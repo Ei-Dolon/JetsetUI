@@ -10,8 +10,8 @@
  *   });
  */
 
-import { useConnection } from 'wagmi';
-import { CONSTS } from '../config/consts';
+//import { useConnection } from 'wagmi';
+//import { CONSTS } from '../config/consts';
 import { Modal } from './Modal';
 import styles from './BuyModal.module.css';
 
@@ -19,7 +19,7 @@ interface BuyModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 }
-const FLOOZ_URL = (address: string, theme: 'dark' | 'light') =>
+/*const FLOOZ_URL = (address: string, theme: 'dark' | 'light') =>
 	`https://flooz.trade/embed/swap?` +
 	`network=bsc` +
 	`&toTokenAddress=${CONSTS.JTS_ADDR}` +
@@ -27,12 +27,10 @@ const FLOOZ_URL = (address: string, theme: 'dark' | 'light') =>
 	`&theme=${theme}` +
 	`&refId=jetset` +
 	`&connectedWallet=${address}`;
-
+*/
 // Body
 export function BuyModal({ isOpen, onClose }: BuyModalProps) {
-	const { address } = useConnection();
-
-	const src = address != null ? FLOOZ_URL(address, 'dark') : FLOOZ_URL('', 'dark');
+	//	const { address } = useConnection();
 
 	return (
 		<Modal
@@ -42,12 +40,11 @@ export function BuyModal({ isOpen, onClose }: BuyModalProps) {
 			<div className={styles['root']}>
 				<iframe
 					className={styles['iframe']}
-					src={src}
-					title="Buy Jetset tokens via Flooz"
-					allow="clipboard-read; clipboard-write"
-					referrerPolicy="no-referrer"
+					src={`https://onramp.money/main/buy/?appId=2408505`}
+					title="Buy Crypto"
 				/>
 			</div>
 		</Modal>
 	);
 }
+// &amp;defaultCoinCode=BNB&amp;defaultFiatCode=USD&amp;defaultWalletAddress=${address}+'&amp;defaultNetwork=bsc

@@ -1,17 +1,26 @@
-import React, { Suspense, lazy } from 'react';
+import { useState, Suspense, lazy } from 'react';
 import { useConnection } from 'wagmi';
 import { ConnectKitButton } from 'connectkit';
 import { useModal } from './hooks/useModal';
 import { SettingsModal } from './components/SettingsModal';
 import { BuyModal } from './components/BuyModal';
 import { ReceiveModal } from './components/ReceiveModal';
+import { Settings } from 'lucide-react';
+import { FiatKey } from './config/types';
 import './App.css'; // Main stylesheet
 // Sub-components (imported or defined here)
 const WalletLabel = lazy(() => import('./components/WalletLabel'));
 const PortfolioBalances = lazy(() => import('./components/PortfolioBalances'));
 // import JetsetGraph from './components/JetsetGraph';
 // import ConnectedButtons from './components/ConnectedButtons';
-
+function readStoredFiat(): FiatKey {
+	try {
+		const stored = localStorage.getItem('selFiat');
+		return stored === 'usd' || stored === 'gbp' || stored === 'eur' ? stored : 'usd';
+	} catch {
+		return 'usd';
+	}
+}
 interface HdrIconProps extends React.SVGProps<SVGSVGElement> {}
 
 export const SettingsIcon = ({ style, ...props }: HdrIconProps) => {
@@ -80,6 +89,8 @@ export default function App() {
 	const buyModal = useModal();
 	const receiveModal = useModal();
 
+	const [selFiat, setSelFiat] = useState<FiatKey>(() => readStoredFiat());
+
 	const renderMainContent = () => {
 		switch (status) {
 			case 'connecting':
@@ -101,7 +112,7 @@ export default function App() {
 						}>
 						<WalletLabel />
 						<br />
-						<PortfolioBalances />
+						<PortfolioBalances selFiat={selFiat} />
 					</Suspense>
 				);
 
@@ -126,7 +137,10 @@ export default function App() {
 						onClick={settingsModal.open}
 						className="settings-icon"
 						aria-label="Settings">
-						<SettingsIcon />
+						<Settings
+							size={48}
+							color="#00d2ff"
+						/>
 					</button>
 				</header>
 
@@ -161,6 +175,8 @@ export default function App() {
 				<SettingsModal
 					isOpen={settingsModal.isOpen}
 					onClose={settingsModal.close}
+					selFiat={selFiat}
+					onSaveFiat={setSelFiat}
 				/>
 				<BuyModal
 					isOpen={buyModal.isOpen}

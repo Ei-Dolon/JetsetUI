@@ -21,12 +21,22 @@ header {
 	/* Perfect Dual-End Masking Math */
 	-webkit-mask-image: linear-gradient(
 		to bottom,
-		transparent 0px,
-		transparent 8px,
-		/* Keeps content hidden right under the header edge */ rgba(0, 0, 0, 1) 32px
-			/* Gradually brings content to full visibility by 32px */
+		transparent 0,
+		transparent 16px,
+		rgba(0, 0, 0, 1) 48px,
+		rgba(0, 0, 0, 1) calc(100% - 48px),
+		transparent calc(100% - 16px),
+		transparent 100%
 	);
-	mask-image: linear-gradient(to bottom, transparent 0px, transparent 8px, rgba(0, 0, 0, 1) 32px);
+	mask-image: linear-gradient(
+		to bottom,
+		transparent 0,
+		transparent 16px,
+		rgba(0, 0, 0, 1) 48px,
+		rgba(0, 0, 0, 1) calc(100% - 48px),
+		transparent calc(100% - 16px),
+		transparent 100%
+	);
 
 	position: sticky;
 	flex-grow: 1;
@@ -103,8 +113,10 @@ footer {
 	background: #181818; /* Dark interior fill for card clarity */
 	padding: 24px;
 	box-shadow:
-		6px 6px 16px rgba(0, 0, 0, 0.4),
-		3px 3px 8px rgba(255, 255, 255, 0.03);
+		0 2px 4px rgba(0, 0, 0, 0.02),
+		0 4px 8px rgba(0, 0, 0, 0.02),
+		0 8px 16px rgba(0, 0, 0, 0.02),
+		0 16px 32px rgba(0, 0, 0, 0.02);
 
 	/* Advanced CSS border gradient implementation hack */
 	border: 2px solid transparent;
@@ -132,10 +144,18 @@ footer {
 	width: 48px;
 	height: 48px;
 	position: absolute;
-	right: 40px;
+	right: 16px;
 	top: 50%;
 	transform: translateY(-50%);
+	background-color: transparent;
 	cursor: pointer;
+	padding: 0;
+	border: none;
+	outline: none;
+	transition: transform 0.3s ease-out;
+}
+.settings-icon:hover {
+	transform: translateY(-50%) scale(1.05);
 }
 
 /* Designed footer section containing an animated electrical pulse representing DApp activity */
@@ -190,6 +210,7 @@ footer {
 	animation: spriteBtnConnect 1.6s steps(4) infinite;
 	cursor: pointer;
 	touch-action: manipulation;
+	transition: transform 0.3s ease-out;
 }
 
 /* STATE 2: CONNECTING STATUS IN PROGRESS */
@@ -203,6 +224,7 @@ footer {
 	animation: spriteBtnConnecting 0.8s steps(2) infinite;
 	pointer-events: none;
 	cursor: default;
+	transition: transform 0.3s ease-out;
 }
 
 /* STATE 3: CONNECTED SUCCESS / DISCONNECT TRIGGER */
@@ -212,6 +234,7 @@ footer {
 	cursor: pointer;
 	animation: none;
 	touch-action: manipulation;
+	transition: transform 0.3s ease-out;
 }
 
 .chain-icon {
@@ -230,6 +253,7 @@ footer {
 	background-color: transparent;
 	background: url('./assets/btnReceive.png');
 	animation: animReceive 1.6s steps(4) infinite;
+	transition: transform 0.3s ease-out;
 }
 @keyframes animReceive {
 	to {
@@ -245,13 +269,20 @@ footer {
 	background-color: transparent;
 	background-image: url('./assets/btnBuy.png');
 	animation: animBuy 1.6s steps(4) infinite;
+	transition: transform 0.3s ease-out;
 }
 @keyframes animBuy {
 	to {
 		background-position: -264px 0;
 	}
 }
-
+.btnBuy:hover,
+.btnReceive:hover,
+.wallet-btn-sprite.btnDisconnect:hover,
+.wallet-btn-sprite.animateConnecting:hover,
+.wallet-btn-sprite.animateConnect:hover {
+	transform: scale(1.05);
+}
 .btnBuy,
 .btnReceive {
 	display: block;

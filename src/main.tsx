@@ -17,9 +17,22 @@ import { ConnectKitProvider } from 'connectkit';
 import './index.css';
 import App from './App';
 import { initStorage } from './config/initStorage';
+import buildTimePriceData from './assets/priceData.json';
+import buildTimePriceMeta from './assets/priceMeta.json';
 
 const queryClient = new QueryClient({
-	defaultOptions: { queries: { gcTime: 1000 * 60 * 10 } }, // 10 minutes
+	defaultOptions: {
+		queries: {
+			refetchInterval: 1000 * 60 * 10, // 10 minutes
+			refetchOnWindowFocus: true,
+			staleTime: 1000 * 60 * 10, // 10 minutes
+			gcTime: 1000 * 60 * 60 * 24,
+		},
+	},
+});
+queryClient.setQueryDefaults(['priceData'], {
+	initialData: buildTimePriceData,
+	initialDataUpdatedAt: new Date(buildTimePriceMeta.priceData_version).getTime(),
 });
 initStorage();
 

@@ -46,6 +46,11 @@ export interface PriceData {
 	jetset: { usd: number; gbp: number; eur: number };
 }
 
+export interface PriceMeta {
+	/** ISO-8601 timestamp of the priceData.json file */
+	priceData_version: string;
+}
+
 /** Enriched response envelope with staleness metadata */
 export interface PriceResponse {
 	data: PriceData;

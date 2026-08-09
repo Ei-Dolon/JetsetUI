@@ -410,6 +410,10 @@ This project is using Vite+, a unified toolchain built on top of Vite, Rolldown,
 
 Docs are local at `node_modules/vite-plus/docs` or online at https://viteplus.dev/guide/.
 
+## Built-in Commands vs Scripts
+
+`vp <name>` runs a built-in command. `vp run <name>` runs a `package.json` script or a `vite.config.ts` task. Scripts cannot overwrite built-ins, so `vp dev` and `vp run dev` may do different things. Check `package.json` and `vite.config.ts` first, and run `vp run <name>` when the project defines a script or task with that name.
+
 ## Review Checklist
 
 - [ ] Run `vp install` after pulling remote changes and before getting started.
@@ -603,7 +607,7 @@ Additional oxlint options:
 - [CLI Reference](https://oxc.rs/docs/guide/usage/linter/cli.html)
 - [Config File Reference](https://oxc.rs/docs/guide/usage/linter/config-file-reference.html)
 - [Complete Oxlint rule list and docs](https://oxc.rs/docs/guide/usage/linter/rules.html)
-  <!--VITE PLUS OXLINT MIGRATION END-->
+    <!--VITE PLUS OXLINT MIGRATION END-->
 
 <!---------------------------------------------------------------------------->
 

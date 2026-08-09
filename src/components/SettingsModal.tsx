@@ -22,36 +22,28 @@ const FIAT_OPTIONS: { value: Fiat; label: string }[] = [
 	{ value: 'eur', label: 'EUR — Euro' },
 ];
 
-const DEFAULT_FIAT: Fiat = 'usd';
+//const DEFAULT_FIAT: Fiat = 'usd';
 
 interface SettingsModalProps {
 	isOpen: boolean;
 	onClose: () => void;
+	selFiat: Fiat;
+	onSaveFiat: (fiat: Fiat) => void;
 }
 
-function readStoredFiat(): Fiat {
-	try {
-		const stored = localStorage.getItem('selFiat');
-		return stored === 'usd' || stored === 'gbp' || stored === 'eur' ? stored : DEFAULT_FIAT;
-	} catch {
-		return DEFAULT_FIAT;
-	}
-}
+export function SettingsModal({ isOpen, onClose, selFiat, onSaveFiat }: SettingsModalProps) {
+	const [draftFiat, setDraftFiat] = useState<Fiat>(selFiat);
 
-export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
-	const [draftFiat, setDraftFiat] = useState<Fiat>(DEFAULT_FIAT);
-
-	// Re-sync draft from localStorage every time the modal opens,
-	// so a discarded draft never leaks into the next open.
 	useEffect(() => {
-		if (isOpen) setDraftFiat(readStoredFiat());
-	}, [isOpen]);
+		if (isOpen) setDraftFiat(selFiat);
+	}, [isOpen, selFiat]);
 
 	const handleSave = () => {
 		try {
 			localStorage.setItem('selFiat', draftFiat);
+			onSaveFiat(draftFiat);
 		} catch {
-			// private/incognito or quota exceeded — draft still applied for this session via onClose
+			onSaveFiat(draftFiat);
 		}
 		onClose();
 	};
