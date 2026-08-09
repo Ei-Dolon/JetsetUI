@@ -89,7 +89,7 @@ To tip a DJ at the nightclub - see the DJ listings for their QR codes, for any a
 Updated Hostinger server to use php v8.4.22 and cURL v8.20.0  
 Added fetch-prices.php script to use Jetset Coingecko API key to create /dapp/public/priceData.json  
 Created CRON job to execute fetch-prices.php every 10 minutes  
-Added draft /dapp/index.html page intoducing Jetset DApps and providing a button to start the latest version of JetsetUI
+Added draft /dapp/index.html page intoducing Jetset DApps and providing a button to start the latest version of JetsetUI.
 
 **v0.0.45-alpha**  
 Fixes: Adding 7dvh offset from bottom of page so DApps are visible on devices with task/button bars e.g. iOS, etc.
@@ -98,4 +98,18 @@ Fixes: Changed fiat price of wallet asset from $ prefix to three letter postfix 
 
 Fixes: Portfolio/Wallet asset total in fiat now matches currently selected fiat both in symbol and value.
 
-Improvement: Latest price data is created during build and is used as initialData for the query cache, the ISO Date UTC Time output is converted to jstime (ms since unix epoch 1/1/1970) and added as initialDataUpdatedAt. The web server uses CRON to fetch the price data every 10 minutes which is written to /dapp/public/ for use by the DApps. On starting JetsetUI the client will attempt to fetch the very latest version of the pricing data, success writes this data to localStorage keys. If rate limiting in effect on the client, then the latest prices wwritten to the server are fetched, this whole process ensures there is always pricing data available and usually under 10 minutes old.\
+Improvement: Latest price data is created during build and is used as initialData for the query cache, the ISO Date UTC Time output is converted to jstime (ms since unix epoch 1/1/1970) and added as initialDataUpdatedAt. The web server uses CRON to fetch the price data every 10 minutes which is written to /dapp/public/ for use by the DApps. On starting JetsetUI the client will attempt to fetch the very latest version of the pricing data, success writes this data to localStorage keys. If rate limiting in effect on the client, then the latest prices wwritten to the server are fetched, this whole process ensures there is always pricing data available and usually under 10 minutes old.
+
+**v0.0.46-alpha**  
+Fixes: Uses priceData generated and written to the DApp assets folder at build time to create the initialData for ['priceData'] tanstack query cache at DApp first ever start.
+After this point, if the version matches then drop out of initialising DApp data as already setup previously, if new version then writes new version data to localStorage DApp keys, including buildtime priceData.
+
+Fixed: usePriceData hook has been modified to use priceData from the Tanstack cache, the cache data fetching hook getPriceData now accesses the Coingecko API directly, if successful uses this data and updates the localStorage keys with latest data. If data fetch fails, e.g. rate limit, then fallsback to fetch the priceData.json and priceMeta.json files from the websites dapp/public folder, which is updated by the server every 10 minutes, successful read updates localStorage as usual, else fail fallsback to previous cache data either build time pricceData, or last successful priceData fetch by the DApp.
+
+Updated: Crypto can now be purchased. The Buy Modal has had Flooz exchanged for Onramper as it has been voted one of the best on-ramp and off-ramp services. Embr seems to have disappeared.
+
+Added: Lucide-react icons have been added as a professional icon that provides platform specific icons, and the code automatically tree shakes.
+
+Added: Setting - Header cog icon.
+
+Added: Info Icon for TipTap and JetsetUI help text.
