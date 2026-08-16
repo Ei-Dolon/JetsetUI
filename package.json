@@ -32,7 +32,7 @@
 		"pnpm": "^11.17.0",
 		"typescript": "^7.0.2",
 		"vite": "npm:@voidzero-dev/vite-plus-core@0.2.8",
-		"vite-plus": "^0.2.8"
+		"vite-plus": "^0.2.9"
 	},
 	"devEngines": {
 		"packageManager": {
