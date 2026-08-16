@@ -21,7 +21,7 @@
 		"react": "^19.2.8",
 		"react-dom": "^19.2.8",
 		"react-qr-code": "^2.2.0",
-		"viem": "^2.55.10",
+		"viem": "^2.55.13",
 		"wagmi": "^3.7.4"
 	},
 	"devDependencies": {
